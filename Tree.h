@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "node.h"
 
-using namespace std;
+
 
 class Tree
 {
@@ -17,9 +17,12 @@ Tree(int X, int Y);
 
 ~Tree();
 
-void insert(Node *cur, int X, int Y);
+Node* insert(Node *cur, int X, int Y);
+
+Node* get_root();
 
 private:
+
 Node *root;
 
 void delete_node(Node * &me);

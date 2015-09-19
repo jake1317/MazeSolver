@@ -28,7 +28,12 @@ void Tree::delete_node(Node * &me)
 	me = NULL;
 }
 
-void Tree::insert(Node * cur, int X, int Y)
+Node* Tree::get_root()
+{
+	return root;
+}
+
+Node* Tree::insert(Node * cur, int X, int Y)
 {
 	int cur_x = cur->x;
 	int cur_y = cur->y;
@@ -38,6 +43,7 @@ void Tree::insert(Node * cur, int X, int Y)
 		cur->left->x = X;
 		cur->left->y = Y;
 		cur->left->parent = cur;
+		return cur->left;
 	}
 	else if(X > cur_x && Y == cur_y)
 	{
@@ -45,6 +51,7 @@ void Tree::insert(Node * cur, int X, int Y)
 		cur->right->x = X;
 		cur->right->y = Y;
 		cur->right->parent = cur;
+		return cur->right;
 	}
 	else if(X == cur_x && Y < cur_y)
 	{
@@ -52,6 +59,7 @@ void Tree::insert(Node * cur, int X, int Y)
 		cur->up->x = X;
 		cur->up->y = Y;
 		cur->up->parent = cur;
+		return cur->up;
 	}
 	else if(X == cur_x && Y > cur_y)
 	{
@@ -59,5 +67,6 @@ void Tree::insert(Node * cur, int X, int Y)
 		cur->down->x = X;
 		cur->down->y = Y;
 		cur->down->parent = cur;
+		return cur->down;
 	}
 }
