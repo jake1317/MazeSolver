@@ -1,3 +1,6 @@
-Jonah is a bitch
-He really is I promise
-He just really sucks
+Read in maze file into a boolean array
+Make Treenode Classes
+Breadth First Searches
+Depth First Searches
+A*
+Greedy Breadth First
