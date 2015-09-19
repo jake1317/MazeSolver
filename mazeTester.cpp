@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main(){
-	Maze * maze = new Maze("butts");
+	Maze * maze = new Maze("bigMaze.txt");
 	cout << "ass" << endl;
 	delete(maze);
 }
