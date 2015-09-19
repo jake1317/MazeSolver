@@ -1,12 +1,20 @@
 #ifndef BTREE_H
 #define BTREE_H
 
-class btree
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+
+class Btree
 {
 public:
 
-btree(): rool(NULL){}
+Btree(): root(NULL){}
 
+Btree(int X, int Y);
+
+~Btree();
 
 void insert(node *cur, int X, int Y);
 
@@ -15,14 +23,14 @@ node *search(int X, int Y);
 
 private:
 
-struct node
+struct Node
 {
 int x;
 int y;
-node *left;
-node *right;
-node *parent;
+Node *left;
+Node *right;
+Node *parent;
 };
-node *root
+Node *root
 
 }
