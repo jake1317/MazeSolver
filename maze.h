@@ -1,3 +1,5 @@
+#include <fstream>
+
 using namespace std;
 
 class Maze{
