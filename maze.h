@@ -2,8 +2,8 @@ using namespace std;
 
 class Maze{
 	public:
-		SquareMaze(string filename);
-		~SquareMaze();
+		Maze(string filename);
+		~Maze();
 	private:
 		int height;
 		int width;
