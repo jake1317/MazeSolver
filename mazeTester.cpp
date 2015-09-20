@@ -3,6 +3,6 @@
 
 int main(){
 	Maze * maze = new Maze("bigMaze.txt");
-	cout << "ass" << endl;
+	maze->printMaze();
 	delete(maze);
 }
