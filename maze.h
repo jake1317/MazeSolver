@@ -15,6 +15,7 @@ class Maze{
 
 		// Misc Functions
 		void printMaze();
+		bool canMove(int x, int y, int dir);
 
 		// Accessors
 		int getHeight(){ return height; };

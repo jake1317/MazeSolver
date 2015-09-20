@@ -11,20 +11,20 @@ class Tree
 {
 public:
 
-Tree(): root(NULL){}
+	Tree(): root(NULL){}
 
-Tree(int X, int Y);
+	Tree(int X, int Y);
 
-~Tree();
+	~Tree();
 
-Node* insert(Node *cur, int X, int Y);
+	Node* insert(Node *cur, int X, int Y);
 
-Node* get_root();
+	Node* get_root();
 
 private:
 
-Node *root;
+	Node *root;
 
-void delete_node(Node * &me);
+	void delete_node(Node * &me);
 };
 #endif

@@ -83,3 +83,29 @@ void Maze::printMaze(){
 		cout << endl;
 	}
 }
+
+bool Maze::canMove(int x, int y, int dir){
+	int newX, newY;
+	// Parse Maze
+	if(dir == 0){
+		newX = x + 1;
+		newY = y;
+	} else if(x == 1){
+		newX = x;
+		newY = y - 1;
+	} else if(x == 2){
+		newX = x - 1;
+		newY = y;
+	} else if(x == 3){
+		newX = x;
+		newY = y + 1;
+	} else {
+		return false;
+	}
+
+	if(newX < 0 || newX >= this->width || newY < 0 || newY >= this->height){
+		return false;
+	}
+
+	return this->maze[newX][newY];
+}
