@@ -21,6 +21,7 @@ class Maze{
 		int getHeight(){ return height; };
 		int getWidth(){ return width; };
 		coordinate getStart(){ return start; };
+		bool atEnd(int x, int y);
 		coordinate getEnd(){ return end; };
 	private:
 		vector<string> * readFile(string filename);

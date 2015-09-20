@@ -63,10 +63,14 @@ bool ** Maze::parseMaze(vector<string> * maze){
 }
 
 void Maze::printMaze(){
+	// Print start and end coordinates
 	cout << "Start: (" << start.x << ", " << start.y << ")" << endl;
 	cout << "End: (" << end.x << ", " << end.y << ")" << endl;
+	// Iterate through Array
 	for(int y = 0;y < this->height;y++){
 		for(int x = 0;x < this->width;x++){
+			// if coordinates are start or end,
+			// Print p or .
 			if(start.x == x && start.y == y){
 				cout << '.';
 				continue;
@@ -74,6 +78,7 @@ void Maze::printMaze(){
 				cout << 'P';
 				continue;
 			}
+			// Print wall and spaces
 			if(maze[x][y]){
 				cout << ' ';
 			} else{
@@ -103,9 +108,17 @@ bool Maze::canMove(int x, int y, int dir){
 		return false;
 	}
 
+	// Return false if out of bounds
 	if(newX < 0 || newX >= this->width || newY < 0 || newY >= this->height){
 		return false;
 	}
-
+	// Return array value
 	return this->maze[newX][newY];
+}
+
+bool atEnd(int x, int y){
+	if(x == this->end.x && y == this->end.y){
+		return true;
+	}
+	return false;
 }
