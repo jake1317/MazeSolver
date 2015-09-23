@@ -1,7 +1,7 @@
 #ifndef MAZE_SOLVER_H
 #define MAZE_SOLVER_H
 
-#include "Tree.h"
+#include "tree.h"
 #include "maze.h"
 
 

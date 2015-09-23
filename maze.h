@@ -1,6 +1,7 @@
 #include <fstream>
 #include <vector>
-
+#include <map>
+#include <pair>
 using namespace std;
 
 class Maze{

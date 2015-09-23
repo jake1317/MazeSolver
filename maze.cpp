@@ -89,18 +89,35 @@ void Maze::printMaze(){
 	}
 }
 
-void solveMaze(Node *leaf, string name)
+void Maze::solveMaze(Node *leaf, string name)
 {
-    ofstream outputMaze(name);
-    for(int i = 0; i < height; i++)
+    map<pair<int,int>,bool> mazeSolution;
+    Node *cur = leaf;
+    pair curPosition;
+    while(cur != NULL)
     {
-        for(int j = 0; j < width; j++)
-        {
-            if(
-            outputFile
-
-
-
+        curPosition.first = cur->x;
+        curPosition.second = cur->y;
+        mazeSolution.insert(pair<pair<int,int>,bool>(curPosition,true));
+        cur = cur->parent;
+    }
+    ofstream outputMaze(name);
+    for(int j = 0; j < height; i++)
+    {
+        for(int i = 0; i < width; j++)
+        {   
+            if(maze[i][j] == true)
+            {
+                if(mazeSolution.at(pair<int,int>(i,j)) == true)
+                    outputFile << ".";
+                else
+                    outputFile << " ";
+            }
+            else
+                outputFile << "%";
+        }
+        outputFile << endl;
+    }
 }
 bool Maze::canMove(int x, int y, int dir){
 	int newX, newY;
