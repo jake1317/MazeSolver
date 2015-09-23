@@ -1,9 +1,9 @@
-#include "btree.h"
+#include "Tree.h"
 #include "maze.h"
 
 using namespace std;
 
 int main(){
-	btree test = new btree;
-	Maze maze = new Maze;
+	Tree *test = new Tree();
+	Maze *maze = new Maze("bigMaze.txt");
 }

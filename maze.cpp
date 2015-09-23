@@ -116,7 +116,7 @@ bool Maze::canMove(int x, int y, int dir){
 	return this->maze[newX][newY];
 }
 
-bool atEnd(int x, int y){
+bool Maze::atEnd(int x, int y){
 	if(x == this->end.x && y == this->end.y){
 		return true;
 	}
