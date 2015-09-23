@@ -1,12 +1,24 @@
-#include "maze_solver.h"
+#include "mazeSolver.h"
 #include <queue>
 #include <stack>
+
+MazeSolver::MazeSolver(Maze *newMaze){
+	BFS_tree = NULL;
+	DFS_tree = NULL;
+	A*_tree = NULL;
+	GBFS_tree = NULL;
+	maze = newMaze;
+}
+
 MazeSolver::~MazeSolver()
 {
 	delete BFS_tree;
 	delete DFS_tree;
 	delete A*_tree;
 	delete GBFS_tree;
+	if(maze){
+		delete(maze);
+	}
 }
 
 Node* MazeSolver::BFS()
@@ -71,6 +83,7 @@ Node* MazeSolver::BFS()
 	}
 	return DFS_tree.getroot();
 }
+
     
 Node* MazeSolver::DFS()
 {
@@ -133,4 +146,8 @@ Node* MazeSolver::DFS()
 		}
     }
 	return DFS_tree.getroot();
+}
+
+int MazeSolver::heuristic(int x, int y){
+	return 0;
 }
