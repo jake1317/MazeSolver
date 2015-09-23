@@ -9,7 +9,7 @@ MazeSolver::~MazeSolver()
 	delete GBFS_tree;
 }
 
-Node* MazeSolver::BFS(Maze *cur);
+Node* MazeSolver::BFS(Maze *cur)
 {
 	queue<Node*> frontier;
 	BFS_tree = new Tree(cur->getStart().x, cur->getStart().y);
@@ -69,8 +69,11 @@ Node* MazeSolver::BFS(Maze *cur);
 			visited[here->x][here->y-1] = true;
 		}
 	}
-	Node* MazeSolver::DFS(Maze *cur);
-	{
+	return DFS_tree.getroot();
+}
+    
+Node* MazeSolver::DFS(Maze *cur)
+{
 	stack<Node*> frontier;
 	DFS_tree = new Tree(cur->getStart().x, cur->getStart().y);
 	frontier.push(BFS_tree.get_root());
@@ -128,6 +131,6 @@ Node* MazeSolver::BFS(Maze *cur);
 			frontier.push(next);
 			visited[here->x][here->y-1] = true;
 		}
-		return DFS_tree.getroot();
-	}
+    }
+	return DFS_tree.getroot();
 }
