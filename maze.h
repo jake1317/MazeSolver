@@ -16,7 +16,7 @@ class Maze{
 		// Misc Functions
 		void printMaze();
 		bool canMove(int x, int y, int dir);
-
+        void solveMaze(Node *leaf, string name);
 		// Accessors
 		int getHeight(){ return height; };
 		int getWidth(){ return width; };

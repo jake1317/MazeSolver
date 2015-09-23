@@ -9,61 +9,61 @@ MazeSolver::~MazeSolver()
 	delete GBFS_tree;
 }
 
-Node* MazeSolver::BFS(Maze *cur)
+Node* MazeSolver::BFS()
 {
 	queue<Node*> frontier;
-	BFS_tree = new Tree(cur->getStart().x, cur->getStart().y);
+	BFS_tree = new Tree(maze->getStart().x, maze->getStart().y);
 	frontier.push(BFS_tree.get_root());
 	bool **visited;
 	int i, j;
 	Node *here;
 	Node *next;
 	//initalizing the visited array
-	visited = new bool*[cur->getWidth()];
-	for(i = 0; i < cur->getWidth(); i++)
+	visited = new bool*[maze->getWidth()];
+	for(i = 0; i < maze->getWidth(); i++)
 	{
-		visited[i] = new bool[cur->getHeight()];
-		for(j=0; j< cur->getHeight(); j++)
+		visited[i] = new bool[maze->getHeight()];
+		for(j=0; j< maze->getHeight(); j++)
 			visited[i][j] = false;
 	}
-	visited[cur->getStart().x][cur->getStart().y] = true;
+	visited[maze->getStart().x][maze->getStart().y] = true;
 	
 	while(!frontier.empty())
 	{
 		here = frontier.front();
 		frontier.pop();
 		//traveling right and checking if at solution
-		if(cur->canTravel(here->x,here->y,0) && !visited[here->x+1][here->y])
+		if(maze->canTravel(here->x,here->y,0) && !visited[here->x+1][here->y])
 		{
 			next = BFS_tree.insert(here,here->x+1,here->y);
-			if(cur->atEnd(next->x, next->y))
+			if(maze->atEnd(next->x, next->y))
 				return next;
 			frontier.push(next);
 			visited[here->x+1][here->y] = true;
 		}
 		//traveling up and checking if at solution
-		if(cur->canTravel(here->x,here->y,1) && !visited[here->x][here->y+1])
+		if(maze->canTravel(here->x,here->y,1) && !visited[here->x][here->y+1])
 		{
 			next = BFS_tree.insert(here,here->x,here->y+1);
-			if(cur->atEnd(next->x, next->y))
+			if(maze->atEnd(next->x, next->y))
 				return next;
 			frontier.push(next);
 			visited[here->x][here->y+1] = true;
 		}
 		//traveling left and checking if at solution
-		if(cur->canTravel(here->x,here->y,2) && !visited[here->x-1][here->y])
+		if(maze->canTravel(here->x,here->y,2) && !visited[here->x-1][here->y])
 		{
 			next = BFS_tree.insert(here,here->x-1,here->y);
-			if(cur->atEnd(next->x, next->y))
+			if(maze->atEnd(next->x, next->y))
 				return next;
 			frontier.push(next);
 			visited[here->x-1][here->y] = true;
 		}
 		//traveling down and checking if at solution
-		if(cur->canTravel(here->x,here->y,3) && !visited[here->x][here->y-1])
+		if(maze->canTravel(here->x,here->y,3) && !visited[here->x][here->y-1])
 		{
 			next = BFS_tree.insert(here,here->x,here->y-1);
-			if(cur->atEnd(next->x, next->y))
+			if(maze->atEnd(next->x, next->y))
 				return next;
 			frontier.push(next);
 			visited[here->x][here->y-1] = true;
@@ -72,61 +72,61 @@ Node* MazeSolver::BFS(Maze *cur)
 	return DFS_tree.getroot();
 }
     
-Node* MazeSolver::DFS(Maze *cur)
+Node* MazeSolver::DFS()
 {
 	stack<Node*> frontier;
-	DFS_tree = new Tree(cur->getStart().x, cur->getStart().y);
+	DFS_tree = new Tree(maze->getStart().x, maze->getStart().y);
 	frontier.push(BFS_tree.get_root());
 	bool **visited;
 	int i, j;
 	Node *here;
 	Node *next;
-	visited = new bool*[cur->getWidth()];
+	visited = new bool*[maze->getWidth()];
 	//initalizing the visited array
-	for(i = 0; i < cur->getWidth(); i++)
+	for(i = 0; i < maze->getWidth(); i++)
 	{
-		visited[i] = new bool[cur->getHeight()];
-		for(j=0; j< cur->getHeight(); j++)
+		visited[i] = new bool[maze->getHeight()];
+		for(j=0; j< maze->getHeight(); j++)
 			visited[i][j] = false;
 	}
-	visited[cur->getStart().x][cur->getStart().y] = true;
+	visited[maze->getStart().x][maze->getStart().y] = true;
 	
 	while(!frontier.empty())
 	{
 		here = frontier.front();
 		frontier.pop();
 		//traveling right
-		if(cur->canTravel(here->x,here->y,0) && !visited[here->x+1][here->y])
+		if(maze->canTravel(here->x,here->y,0) && !visited[here->x+1][here->y])
 		{
 			next = DFS_tree.insert(here,here->x+1,here->y);
-			if(next->x == cur->getEnd().x && next->y == cur->getEnd().y)
+			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
 				return next;
 			frontier.push(next);
 			visited[here->x+1][here->y] = true;
 		}
 		//traveling up 
-		if(cur->canTravel(here->x,here->y,1) && !visited[here->x][here->y+1])
+		if(maze->canTravel(here->x,here->y,1) && !visited[here->x][here->y+1])
 		{
 			next = DFS_tree.insert(here,here->x,here->y+1);
-			if(next->x == cur->getEnd().x && next->y == cur->getEnd().y)
+			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
 				return next;
 			frontier.push(next);
 			visited[here->x][here->y+1] = true;
 		}
 		//traveling left
-		if(cur->canTravel(here->x,here->y,2) && !visited[here->x-1][here->y])
+		if(maze->canTravel(here->x,here->y,2) && !visited[here->x-1][here->y])
 		{
 			next = DFS_tree.insert(here,here->x-1,here->y);
-			if(next->x == cur->getEnd().x && next->y == cur->getEnd().y)
+			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
 				return next;
 			frontier.push(next);
 			visited[here->x-1][here->y] = true;
 		}
 		//traveling down
-		if(cur->canTravel(here->x,here->y,3) && !visited[here->x][here->y-1])
+		if(maze->canTravel(here->x,here->y,3) && !visited[here->x][here->y-1])
 		{
 			next = DFS_tree.insert(here,here->x,here->y-1);
-			if(next->x == cur->getEnd().x && next->y == cur->getEnd().y)
+			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
 				return next;
 			frontier.push(next);
 			visited[here->x][here->y-1] = true;

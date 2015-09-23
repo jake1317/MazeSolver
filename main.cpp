@@ -1,9 +1,11 @@
-#include "btree.h"
+#include "tree.h"
 #include "maze.h"
-
+#include <iostream>
 using namespace std;
 
 int main(){
-	btree test = new btree;
-	Maze maze = new Maze;
+	Tree *test = new Tree(1,1);
+	Node *tright = test->insert(test->get_root(),2,1);
+	cout << tright->x <<endl;
+	
 }

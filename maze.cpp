@@ -89,6 +89,19 @@ void Maze::printMaze(){
 	}
 }
 
+void solveMaze(Node *leaf, string name)
+{
+    ofstream outputMaze(name);
+    for(int i = 0; i < height; i++)
+    {
+        for(int j = 0; j < width; j++)
+        {
+            if(
+            outputFile
+
+
+
+}
 bool Maze::canMove(int x, int y, int dir){
 	int newX, newY;
 	// Parse Maze
