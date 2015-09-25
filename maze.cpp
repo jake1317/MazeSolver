@@ -7,7 +7,7 @@ Maze::Maze(string filename){
 	vector<string> * file = readFile(filename);
 	// Assign Height and Width
 	height = file->size();
-	width = (int) (*file)[0].length() - 1;
+width = (int) (*file)[0].length() - 1;
 	// Get maze array
 	maze = parseMaze(file);
 	delete(file);
@@ -22,7 +22,7 @@ Maze::~Maze(){
 
 vector<string> * Maze::readFile(string filename){
 	ifstream mazeFile;
-	mazeFile.open(filename);
+	mazeFile.open(filename.c_str());
 	vector<string> * fileLines = new vector<string>();
 	string line;
 	while(mazeFile.is_open() && getline(mazeFile, line)){
@@ -99,7 +99,7 @@ void Maze::solveMaze(Node *leaf, string name)
         mazeSolution.insert(pair<pair<int,int>,bool>(curPosition,true));
         cur = cur->parent;
     }
-    ofstream outputMaze(name);
+    ofstream outputMaze(name.c_str());
     for(int j = 0; j < height; j++)
     {
         for(int i = 0; i < width; i++)

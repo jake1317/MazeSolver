@@ -1,3 +1,6 @@
+#ifndef MAZE_H
+#define MAZE_H
+
 #include <fstream>
 #include <vector>
 #include <map>
@@ -35,3 +38,4 @@ class Maze{
 		coordinate end;
 		bool ** maze;
 };
+#endif
