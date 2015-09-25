@@ -1,7 +1,7 @@
 all: main
 
-main: tree.o maze.o main.o
-	g++ tree.o maze.o main.o -o mainExe
+main: tree.o maze.o main.o mazeSolver.o
+	g++ tree.o maze.o main.o mazeSolver.o -o mainExe
 
 maze: maze.o mazeTester.o
 	g++ maze.o mazeTester.o -o mazeTest
@@ -24,8 +24,8 @@ main.o: main.cpp
 solveTester.o:
 	g++ -c solveTester.cpp
 
-mazeSolve.o:
-	g++ -c mazeSolve.cpp
+mazeSolver.o:
+	g++ -c mazeSolver.cpp
 
 clean:
 	rm *.o
