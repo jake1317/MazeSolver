@@ -2,12 +2,11 @@
 #define MAZE_SOLVER_H
 
 #include "maze.h"
+#include "tree.h"
 
 class MazeSolver
 {
 public:
-
-	MazeSolver();
 	
     MazeSolver(Maze *newMaze);
 	

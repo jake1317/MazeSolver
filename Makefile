@@ -6,11 +6,11 @@ main: tree.o maze.o main.o
 maze: maze.o mazeTester.o
 	g++ maze.o mazeTester.o -o mazeTest
 
-solve: solveTester.o mazeSolver.o
-	g++ solveTester.o mazeSolver.o -o mazeSolve
+solve: solveTester.o mazeSolver.o tree.o maze.o
+	g++ solveTester.o mazeSolver.o tree.o maze.o -o mazeSolve
 
 tree.o: tree.cpp
-	g++ -c tree.cpp
+	g++ -c -g tree.cpp
 
 maze.o: maze.cpp
 	g++ -c maze.cpp
