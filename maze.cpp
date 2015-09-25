@@ -48,10 +48,10 @@ bool ** Maze::parseMaze(vector<string> * maze){
 				outputMaze[x][y] = false;
 			}
 			// Assign start and end points
-			if(currChar == 'P'){
+			if(currChar == '.'){
 				end.x = x;
 				end.y = y;
-			} else if(currChar == '.'){
+			} else if(currChar == 'P'){
 				start.x = x;
 				start.y = y;
 			}
@@ -70,10 +70,10 @@ void Maze::printMaze(){
 			// if coordinates are start or end,
 			// Print p or .
 			if(start.x == x && start.y == y){
-				cout << '.';
+				cout << 'P';
 				continue;
 			} else if(end.x == x && end.y == y){
-				cout << 'P';
+				cout << '.';
 				continue;
 			}
 			// Print wall and spaces
@@ -106,7 +106,7 @@ void Maze::solveMaze(Node *leaf, string name)
         {   
             if(maze[i][j] == true)
             {
-                if(mazeSolution.at(pair<int,int>(i,j)) == true)
+                if(mazeSolution[pair<int,int>(i,j)] == true)
                     outputMaze << ".";
                 else
                     outputMaze << " ";
@@ -124,13 +124,13 @@ bool Maze::canMove(int x, int y, int dir){
 	if(dir == 0){
 		newX = x + 1;
 		newY = y;
-	} else if(x == 1){
+	} else if(dir == 1){
 		newX = x;
 		newY = y - 1;
-	} else if(x == 2){
+	} else if(dir == 2){
 		newX = x - 1;
 		newY = y;
-	} else if(x == 3){
+	} else if(dir == 3){
 		newX = x;
 		newY = y + 1;
 	} else {

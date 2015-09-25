@@ -18,6 +18,11 @@ MazeSolver::~MazeSolver()
 	delete Astar_tree;
 	delete GBFS_tree;
 	delete maze;
+	BFS_tree = NULL;
+	DFS_tree = NULL;
+	Astar_tree = NULL;
+	GBFS_tree = NULL;
+	maze = NULL;
 }
 
 Node* MazeSolver::BFS()
@@ -53,13 +58,13 @@ Node* MazeSolver::BFS()
 			visited[here->x+1][here->y] = true;
 		}
 		//traveling up and checking if at solution
-		if(maze->canMove(here->x,here->y,1) && !visited[here->x][here->y+1])
+		if(maze->canMove(here->x,here->y,1) && !visited[here->x][here->y-1])
 		{
-			next = BFS_tree->insert(here,here->x,here->y+1);
+			next = BFS_tree->insert(here,here->x,here->y-1);
 			if(maze->atEnd(next->x, next->y))
 				return next;
 			frontier.push(next);
-			visited[here->x][here->y+1] = true;
+			visited[here->x][here->y-1] = true;
 		}
 		//traveling left and checking if at solution
 		if(maze->canMove(here->x,here->y,2) && !visited[here->x-1][here->y])
@@ -71,16 +76,16 @@ Node* MazeSolver::BFS()
 			visited[here->x-1][here->y] = true;
 		}
 		//traveling down and checking if at solution
-		if(maze->canMove(here->x,here->y,3) && !visited[here->x][here->y-1])
+		if(maze->canMove(here->x,here->y,3) && !visited[here->x][here->y+1])
 		{
-			next = BFS_tree->insert(here,here->x,here->y-1);
+			next = BFS_tree->insert(here,here->x,here->y+1);
 			if(maze->atEnd(next->x, next->y))
 				return next;
 			frontier.push(next);
-			visited[here->x][here->y-1] = true;
+			visited[here->x][here->y+1] = true;
 		}
 	}
-	return DFS_tree->get_root();
+	return here;
 }
 
     
@@ -88,7 +93,7 @@ Node* MazeSolver::DFS()
 {
 	stack<Node*> frontier;
 	DFS_tree = new Tree(maze->getStart().x, maze->getStart().y);
-	frontier.push(BFS_tree->get_root());
+	frontier.push(DFS_tree->get_root());
 	bool **visited;
 	int i, j;
 	Node *here;
@@ -117,13 +122,13 @@ Node* MazeSolver::DFS()
 			visited[here->x+1][here->y] = true;
 		}
 		//traveling up 
-		if(maze->canMove(here->x,here->y,1) && !visited[here->x][here->y+1])
+		if(maze->canMove(here->x,here->y,1) && !visited[here->x][here->y-1])
 		{
-			next = DFS_tree->insert(here,here->x,here->y+1);
+			next = DFS_tree->insert(here,here->x,here->y-1);
 			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
 				return next;
 			frontier.push(next);
-			visited[here->x][here->y+1] = true;
+			visited[here->x][here->y-1] = true;
 		}
 		//traveling left
 		if(maze->canMove(here->x,here->y,2) && !visited[here->x-1][here->y])
@@ -135,16 +140,16 @@ Node* MazeSolver::DFS()
 			visited[here->x-1][here->y] = true;
 		}
 		//traveling down
-		if(maze->canMove(here->x,here->y,3) && !visited[here->x][here->y-1])
+		if(maze->canMove(here->x,here->y,3) && !visited[here->x][here->y+1])
 		{
-			next = DFS_tree->insert(here,here->x,here->y-1);
+			next = DFS_tree->insert(here,here->x,here->y+1);
 			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
 				return next;
 			frontier.push(next);
-			visited[here->x][here->y-1] = true;
+			visited[here->x][here->y+1] = true;
 		}
     }
-	return DFS_tree->get_root();
+	return here;
 }
 
 int MazeSolver::heuristic(int x, int y){
