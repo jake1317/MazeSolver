@@ -2,10 +2,19 @@
 #include <queue>
 #include <stack>
 
+
 MazeSolver::MazeSolver(Maze *newMaze){
 	BFS_tree = NULL;
 	DFS_tree = NULL;
-	A*_tree = NULL;
+	Astar_tree = NULL;
+	GBFS_tree = NULL;
+	maze = NULL;
+}
+
+MazeSolver::MazeSolver(Maze *newMaze){
+	BFS_tree = NULL;
+	DFS_tree = NULL;
+	Astar_tree = NULL;
 	GBFS_tree = NULL;
 	maze = newMaze;
 }
@@ -14,7 +23,7 @@ MazeSolver::~MazeSolver()
 {
 	delete BFS_tree;
 	delete DFS_tree;
-	delete A*_tree;
+	delete Astar_tree;
 	delete GBFS_tree;
 	if(maze){
 		delete(maze);

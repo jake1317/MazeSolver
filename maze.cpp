@@ -1,6 +1,4 @@
 #include "maze.h"
-#include <iostream>
-#include <vector>
 
 using namespace std;
 
@@ -93,7 +91,7 @@ void Maze::solveMaze(Node *leaf, string name)
 {
     map<pair<int,int>,bool> mazeSolution;
     Node *cur = leaf;
-    pair curPosition;
+    pair<int,int> curPosition;
     while(cur != NULL)
     {
         curPosition.first = cur->x;
@@ -102,22 +100,23 @@ void Maze::solveMaze(Node *leaf, string name)
         cur = cur->parent;
     }
     ofstream outputMaze(name);
-    for(int j = 0; j < height; i++)
+    for(int j = 0; j < height; j++)
     {
-        for(int i = 0; i < width; j++)
+        for(int i = 0; i < width; i++)
         {   
             if(maze[i][j] == true)
             {
                 if(mazeSolution.at(pair<int,int>(i,j)) == true)
-                    outputFile << ".";
+                    outputMaze << ".";
                 else
-                    outputFile << " ";
+                    outputMaze << " ";
             }
             else
-                outputFile << "%";
+                outputMaze << "%";
         }
-        outputFile << endl;
+        outputMaze << endl;
     }
+    outputMaze.close();
 }
 bool Maze::canMove(int x, int y, int dir){
 	int newX, newY;

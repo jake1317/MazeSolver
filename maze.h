@@ -1,7 +1,9 @@
 #include <fstream>
 #include <vector>
 #include <map>
-#include <pair>
+#include <utility>
+#include <iostream>
+#include "tree.h"
 using namespace std;
 
 class Maze{

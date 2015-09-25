@@ -1,16 +1,15 @@
 #ifndef MAZE_SOLVER_H
 #define MAZE_SOLVER_H
 
-#include "tree.h"
 #include "maze.h"
-
-
 
 class MazeSolver
 {
 public:
+
+	MazeSolver();
 	
-	MazeSolver(Maze *newMaze);
+    MazeSolver(Maze *newMaze);
 	
 	~MazeSolver();
 	
@@ -18,9 +17,9 @@ public:
 	
 	Node* DFS();
 	
-	Node* GBFS();
+//	Node* GBFS();
 		
-	Node* Astar();
+//	Node* Astar();
 	
 private:
 	

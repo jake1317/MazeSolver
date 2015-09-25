@@ -1,9 +1,11 @@
-#include "Tree.h"
-#include "maze.h"
+#include "mazeSolver.h"
+#include "tree.h"
 #include <iostream>
 using namespace std;
 
 int main(){
-	Tree *test = new Tree();
 	Maze *maze = new Maze("bigMaze.txt");
+    MazeSolver *solution = new MazeSolver(maze);
+//    Node *final = solution->BFS();
+  //  maze->solveMaze(final, "bigMazeBFS.txt");
 }
