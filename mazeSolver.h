@@ -16,13 +16,22 @@ public:
 	
 	Node* DFS();
 	
-//	Node* GBFS();
+	Node* GBFS();
 		
 //	Node* Astar();
-	
-private:
-	
 	int heuristic(int x, int y);
+
+	// Comparison Struct
+	struct indirect_compare
+	{
+		template <typename T>
+		bool operator()(const T& first, const T& second) const 
+		{
+			return *first < *second;
+		}
+	};
+
+private:
 
 	Maze * maze;
 

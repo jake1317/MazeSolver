@@ -3,12 +3,16 @@
 
 struct Node
 {
-int x;
-int y;
-Node *left;
-Node *right;
-Node *up;
-Node *down;
-Node *parent;
+	int x;
+	int y;
+	int distance;
+	Node *left;
+	Node *right;
+	Node *up;
+	Node *down;
+	Node *parent;
+	bool operator<(const Node& a){
+		return this->distance > a.distance;
+	}
 };
 #endif

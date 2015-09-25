@@ -1,7 +1,12 @@
 #include "mazeSolver.h"
 #include <queue>
 #include <stack>
+#include <vector>
+#include <algorithm>
+#include <math.h>
+#include <cstdlib>
 
+using namespace std;
 
 MazeSolver::MazeSolver(Maze *newMaze){
 	BFS_tree = NULL;
@@ -147,6 +152,93 @@ Node* MazeSolver::DFS()
 	return DFS_tree->get_root();
 }
 
+
+Node* MazeSolver::GBFS(){
+	// Initialize Tree
+	GBFS_tree = new Tree(maze->getStart().x, maze->getStart().y);
+	Node * root = GBFS_tree->get_root();
+	root->distance = heuristic(root->x, root->y);
+
+	// Create frontier
+	vector<Node*> frontier;
+	frontier.push_back(root);
+	make_heap(frontier.begin(), frontier.end());
+	
+	// Create visited Array
+	bool ** visited = new bool*[maze->getWidth()];
+	for(int i = 0;i<maze->getWidth();i++){
+		visited[i] = new bool[maze->getHeight()];
+		for(int j = 0;j<maze->getHeight();j++){
+			visited[i][j] = false;
+		}
+	}
+
+	// Iterate through maze
+	while(frontier.size() > 0){
+		pop_heap(frontier.begin(), frontier.end());
+		Node * current = frontier.back();
+		frontier.pop_back();
+		int x = current->x;
+		int y = current->y;
+		cout << "(" << x << ", " << y << ")" << endl;
+		// Don't expand if visited
+		if(visited[x][y]){
+			continue;
+		}else{
+			visited[x][y] = true;
+		}
+		
+		// Return if you get to the goal
+		if(maze->atEnd(x, y)){
+			return current;
+		}
+
+		// Right Dir (0)
+		if(maze->canMove(x+1, y, 0)){
+			Node * child = GBFS_tree->insert(current, x+1, y);
+			child->distance = heuristic(x+1, y);
+			frontier.push_back(child);
+			push_heap(frontier.begin(), frontier.end());
+		}
+
+		// Up Dir (1)
+		if(maze->canMove(x, y-1, 1)){
+			Node * child = GBFS_tree->insert(current, x, y-1);
+			child->distance = heuristic(x, y-1);
+			frontier.push_back(child);
+			push_heap(frontier.begin(), frontier.end());
+		}
+
+		// Left Dir (2)
+		if(maze->canMove(x-1, y, 2)){
+			Node * child = GBFS_tree->insert(current, x-1, y);
+			child->distance = heuristic(x-1, y);
+			frontier.push_back(child);
+			push_heap(frontier.begin(), frontier.end());
+		}
+
+		// Down Dir (3)
+		if(maze->canMove(x, y+1, 1)){
+			Node * child = GBFS_tree->insert(current, x, y+1);
+			child->distance = heuristic(x, y+1);
+			frontier.push_back(child);
+			push_heap(frontier.begin(), frontier.end());
+		}
+	}
+	/*
+	 * Make root at start
+	 * make visited array
+	 *
+	 *  loop:
+	 * 		pop minHeap
+	 * 		check visited
+	 * 		check if its at goal
+	 * 			return if goal
+	 * 		add frontier to heap/tree
+	 */
+}
+
+
 int MazeSolver::heuristic(int x, int y){
-	return 0;
+	return abs(maze->getEnd().x - x) + abs(maze->getEnd().y - y);
 }
