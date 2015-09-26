@@ -4,8 +4,10 @@
 using namespace std;
 
 int main(){
-	Maze *maze = new Maze("openMaze.txt");	
+	Maze *maze = new Maze("bigMaze.txt");	
 	MazeSolver *solution = new MazeSolver(maze);
   	Node *final = solution->BFS();
-    maze->solveMaze(final, "openMazeBFS.txt");
+    maze->solveMaze(final, "bigMazeBFS.txt");
+	final = solution->GBFS();
+	maze->solveMaze(final, "bigMazeGBFS.txt");
 }

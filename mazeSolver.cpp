@@ -185,13 +185,8 @@ Node* MazeSolver::GBFS(){
 		frontier.pop_back();
 		int x = current->x;
 		int y = current->y;
-		cout << "(" << x << ", " << y << ")" << endl;
 		// Don't expand if visited
-		if(visited[x][y]){
-			continue;
-		}else{
-			visited[x][y] = true;
-		}
+		visited[x][y] = true;
 		
 		// Return if you get to the goal
 		if(maze->atEnd(x, y)){
@@ -199,7 +194,7 @@ Node* MazeSolver::GBFS(){
 		}
 
 		// Right Dir (0)
-		if(maze->canMove(x+1, y, 0)){
+		if(maze->canMove(x, y, 0) && !visited[x+1][y]){
 			Node * child = GBFS_tree->insert(current, x+1, y);
 			child->distance = heuristic(x+1, y);
 			frontier.push_back(child);
@@ -207,7 +202,7 @@ Node* MazeSolver::GBFS(){
 		}
 
 		// Up Dir (1)
-		if(maze->canMove(x, y-1, 1)){
+		if(maze->canMove(x, y, 1) && !visited[x][y-1]){
 			Node * child = GBFS_tree->insert(current, x, y-1);
 			child->distance = heuristic(x, y-1);
 			frontier.push_back(child);
@@ -215,7 +210,7 @@ Node* MazeSolver::GBFS(){
 		}
 
 		// Left Dir (2)
-		if(maze->canMove(x-1, y, 2)){
+		if(maze->canMove(x, y, 2) && !visited[x-1][y]){
 			Node * child = GBFS_tree->insert(current, x-1, y);
 			child->distance = heuristic(x-1, y);
 			frontier.push_back(child);
@@ -223,24 +218,14 @@ Node* MazeSolver::GBFS(){
 		}
 
 		// Down Dir (3)
-		if(maze->canMove(x, y+1, 1)){
+		if(maze->canMove(x, y, 3) && !visited[x][y+1]){
 			Node * child = GBFS_tree->insert(current, x, y+1);
 			child->distance = heuristic(x, y+1);
 			frontier.push_back(child);
 			push_heap(frontier.begin(), frontier.end());
 		}
 	}
-	/*
-	 * Make root at start
-	 * make visited array
-	 *
-	 *  loop:
-	 * 		pop minHeap
-	 * 		check visited
-	 * 		check if its at goal
-	 * 			return if goal
-	 * 		add frontier to heap/tree
-	 */
+	return NULL;
 }
 
 
