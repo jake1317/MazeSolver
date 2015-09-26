@@ -14,6 +14,11 @@ MazeSolver::MazeSolver(Maze *newMaze){
 	Astar_tree = NULL;
 	GBFS_tree = NULL;
 	maze = newMaze;
+	BFS_expandedNodes = 0;
+	DFS_expandedNodes = 0;
+	GBFS_expandedNodes = 0;
+	Astar_expandedNodes = 0;
+
 }
 
 MazeSolver::~MazeSolver()
@@ -53,6 +58,7 @@ Node* MazeSolver::BFS()
 	{
 		here = frontier.front();
 		frontier.pop();
+		BFS_expandedNodes++;
 		//traveling right and checking if at solution
 		if(maze->canMove(here->x,here->y,0) && !visited[here->x+1][here->y])
 		{
@@ -121,6 +127,7 @@ Node* MazeSolver::DFS()
 	{
 		here = frontier.top();
 		frontier.pop();
+		DFS_expandedNodes++;
 		//traveling right
 		if(maze->canMove(here->x,here->y,0) && !visited[here->x+1][here->y])
 		{
@@ -191,6 +198,7 @@ Node* MazeSolver::GBFS(){
 		pop_heap(frontier.begin(), frontier.end());
 		Node * current = frontier.back();
 		frontier.pop_back();
+		GBFS_expandedNodes++;
 		int x = current->x;
 		int y = current->y;
 		// Don't ejpand if visited
