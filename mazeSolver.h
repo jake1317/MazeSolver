@@ -19,7 +19,6 @@ public:
 	Node* GBFS();
 		
 //	Node* Astar();
-	int heuristic(int x, int y);
 
 	// Comparison Struct
 	struct indirect_compare
@@ -39,5 +38,8 @@ private:
 	Tree* DFS_tree;
 	Tree* Astar_tree;
 	Tree* GBFS_tree;
+	
+	int heuristic(int x, int y);
+	int computePathCost(Node *leaf);
 };
 #endif

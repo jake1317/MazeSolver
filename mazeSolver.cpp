@@ -58,6 +58,7 @@ Node* MazeSolver::BFS()
 		{
 			next = BFS_tree->insert(here,here->x+1,here->y);
 			if(maze->atEnd(next->x, next->y))
+				BFS_cost = computePathCost(next);
 				return next;
 			frontier.push(next);
 			visited[here->x+1][here->y] = true;
@@ -67,6 +68,7 @@ Node* MazeSolver::BFS()
 		{
 			next = BFS_tree->insert(here,here->x,here->y-1);
 			if(maze->atEnd(next->x, next->y))
+				BFS_cost = computePathCost(next);
 				return next;
 			frontier.push(next);
 			visited[here->x][here->y-1] = true;
@@ -76,6 +78,7 @@ Node* MazeSolver::BFS()
 		{
 			next = BFS_tree->insert(here,here->x-1,here->y);
 			if(maze->atEnd(next->x, next->y))
+				BFS_cost = computePathCost(next);
 				return next;
 			frontier.push(next);
 			visited[here->x-1][here->y] = true;
@@ -85,6 +88,7 @@ Node* MazeSolver::BFS()
 		{
 			next = BFS_tree->insert(here,here->x,here->y+1);
 			if(maze->atEnd(next->x, next->y))
+				BFS_cost = computePathCost(next);
 				return next;
 			frontier.push(next);
 			visited[here->x][here->y+1] = true;
@@ -122,6 +126,7 @@ Node* MazeSolver::DFS()
 		{
 			next = DFS_tree->insert(here,here->x+1,here->y);
 			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
+				DFS_cost = computePathCost(next);
 				return next;
 			frontier.push(next);
 			visited[here->x+1][here->y] = true;
@@ -131,6 +136,7 @@ Node* MazeSolver::DFS()
 		{
 			next = DFS_tree->insert(here,here->x,here->y-1);
 			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
+				DFS_cost = computePathCost(next);
 				return next;
 			frontier.push(next);
 			visited[here->x][here->y-1] = true;
@@ -140,6 +146,7 @@ Node* MazeSolver::DFS()
 		{
 			next = DFS_tree->insert(here,here->x-1,here->y);
 			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
+				DFS_cost = computePathCost(next);
 				return next;
 			frontier.push(next);
 			visited[here->x-1][here->y] = true;
@@ -149,6 +156,7 @@ Node* MazeSolver::DFS()
 		{
 			next = DFS_tree->insert(here,here->x,here->y+1);
 			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
+				DFS_cost = computePathCost(next);
 				return next;
 			frontier.push(next);
 			visited[here->x][here->y+1] = true;
@@ -185,11 +193,12 @@ Node* MazeSolver::GBFS(){
 		frontier.pop_back();
 		int x = current->x;
 		int y = current->y;
-		// Don't expand if visited
+		// Don't ejpand if visited
 		visited[x][y] = true;
 		
 		// Return if you get to the goal
 		if(maze->atEnd(x, y)){
+			GBFS_cost = computePathCost(current);
 			return current;
 		}
 
@@ -231,4 +240,14 @@ Node* MazeSolver::GBFS(){
 
 int MazeSolver::heuristic(int x, int y){
 	return abs(maze->getEnd().x - x) + abs(maze->getEnd().y - y);
+}
+
+int MazeSolver::computePathCost(Node * leaf){
+	Node * current = leaf;
+	int pathCost = 0;
+	while(current){
+		pathCost++;
+		current = current->parent;
+	}
+	return pathCost;
 }
