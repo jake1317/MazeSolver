@@ -20,6 +20,17 @@ public:
 		
 //	Node* Astar();
 
+	// accessors
+	int getBFSExpandedNodes(){ return BFS_expandedNodes; }
+	int getDFSExpandedNodes(){ return DFS_expandedNodes; }
+	int getGBFSExpandedNodes(){ return GBFS_expandedNodes; }
+	int getAstarExpandedNodes(){ return Astar_expandedNodes; }
+
+	int getBFSCost(){ return BFS_cost; }
+	int getDFSCost(){ return DFS_cost; }
+	int getGBFSCost(){ return GBFS_cost; }
+	int getAstarCost(){ return Astar_cost; }
+
 	// Comparison Struct
 	struct indirect_compare
 	{

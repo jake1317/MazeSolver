@@ -63,9 +63,10 @@ Node* MazeSolver::BFS()
 		if(maze->canMove(here->x,here->y,0) && !visited[here->x+1][here->y])
 		{
 			next = BFS_tree->insert(here,here->x+1,here->y);
-			if(maze->atEnd(next->x, next->y))
+			if(maze->atEnd(next->x, next->y)){
 				BFS_cost = computePathCost(next);
 				return next;
+			}
 			frontier.push(next);
 			visited[here->x+1][here->y] = true;
 		}
@@ -73,9 +74,10 @@ Node* MazeSolver::BFS()
 		if(maze->canMove(here->x,here->y,1) && !visited[here->x][here->y-1])
 		{
 			next = BFS_tree->insert(here,here->x,here->y-1);
-			if(maze->atEnd(next->x, next->y))
+			if(maze->atEnd(next->x, next->y)){
 				BFS_cost = computePathCost(next);
 				return next;
+			}
 			frontier.push(next);
 			visited[here->x][here->y-1] = true;
 		}
@@ -83,9 +85,10 @@ Node* MazeSolver::BFS()
 		if(maze->canMove(here->x,here->y,2) && !visited[here->x-1][here->y])
 		{
 			next = BFS_tree->insert(here,here->x-1,here->y);
-			if(maze->atEnd(next->x, next->y))
+			if(maze->atEnd(next->x, next->y)){
 				BFS_cost = computePathCost(next);
 				return next;
+			}
 			frontier.push(next);
 			visited[here->x-1][here->y] = true;
 		}
@@ -93,9 +96,10 @@ Node* MazeSolver::BFS()
 		if(maze->canMove(here->x,here->y,3) && !visited[here->x][here->y+1])
 		{
 			next = BFS_tree->insert(here,here->x,here->y+1);
-			if(maze->atEnd(next->x, next->y))
+			if(maze->atEnd(next->x, next->y)){
 				BFS_cost = computePathCost(next);
 				return next;
+			}
 			frontier.push(next);
 			visited[here->x][here->y+1] = true;
 		}
@@ -132,9 +136,10 @@ Node* MazeSolver::DFS()
 		if(maze->canMove(here->x,here->y,0) && !visited[here->x+1][here->y])
 		{
 			next = DFS_tree->insert(here,here->x+1,here->y);
-			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
+			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y){
 				DFS_cost = computePathCost(next);
 				return next;
+			}
 			frontier.push(next);
 			visited[here->x+1][here->y] = true;
 		}
@@ -142,9 +147,10 @@ Node* MazeSolver::DFS()
 		if(maze->canMove(here->x,here->y,1) && !visited[here->x][here->y-1])
 		{
 			next = DFS_tree->insert(here,here->x,here->y-1);
-			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
+			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y){
 				DFS_cost = computePathCost(next);
 				return next;
+			}
 			frontier.push(next);
 			visited[here->x][here->y-1] = true;
 		}
@@ -152,9 +158,10 @@ Node* MazeSolver::DFS()
 		if(maze->canMove(here->x,here->y,2) && !visited[here->x-1][here->y])
 		{
 			next = DFS_tree->insert(here,here->x-1,here->y);
-			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
+			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y){
 				DFS_cost = computePathCost(next);
 				return next;
+			}
 			frontier.push(next);
 			visited[here->x-1][here->y] = true;
 		}
@@ -162,9 +169,10 @@ Node* MazeSolver::DFS()
 		if(maze->canMove(here->x,here->y,3) && !visited[here->x][here->y+1])
 		{
 			next = DFS_tree->insert(here,here->x,here->y+1);
-			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y)
+			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y){
 				DFS_cost = computePathCost(next);
 				return next;
+			}
 			frontier.push(next);
 			visited[here->x][here->y+1] = true;
 		}

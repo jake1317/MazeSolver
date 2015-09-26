@@ -7,7 +7,7 @@ Maze::Maze(string filename){
 	vector<string> * file = readFile(filename);
 	// Assign Height and Width
 	height = file->size();
-width = (int) (*file)[0].length() - 1;
+	width = (int) (*file)[0].length() - 1;
 	// Get maze array
 	maze = parseMaze(file);
 	delete(file);
@@ -118,6 +118,7 @@ void Maze::solveMaze(Node *leaf, string name)
     }
     outputMaze.close();
 }
+
 bool Maze::canMove(int x, int y, int dir){
 	int newX, newY;
 	// Parse Maze
