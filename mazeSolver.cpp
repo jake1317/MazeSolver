@@ -188,9 +188,8 @@ Node* MazeSolver::GBFS(){
 	root->distance = heuristic(root->x, root->y);
 
 	// Create frontier
-	vector<Node*> frontier;
-	frontier.push_back(root);
-	make_heap(frontier.begin(), frontier.end());
+	priority_queue<Node*, vector<Node*>, indirect_compare> front;
+	front.push(root);
 	
 	// Create visited Array
 	bool ** visited = new bool*[maze->getWidth()];
@@ -202,10 +201,10 @@ Node* MazeSolver::GBFS(){
 	}
 
 	// Iterate through maze
-	while(frontier.size() > 0){
-		pop_heap(frontier.begin(), frontier.end());
-		Node * current = frontier.back();
-		frontier.pop_back();
+	while(front.size() > 0){
+		Node * current = front.top();
+		front.pop();
+
 		GBFS_expandedNodes++;
 		int x = current->x;
 		int y = current->y;
@@ -217,37 +216,109 @@ Node* MazeSolver::GBFS(){
 			GBFS_cost = computePathCost(current);
 			return current;
 		}
-
+		Node * child = NULL;
 		// Right Dir (0)
 		if(maze->canMove(x, y, 0) && !visited[x+1][y]){
-			Node * child = GBFS_tree->insert(current, x+1, y);
+			child = GBFS_tree->insert(current, x+1, y);
 			child->distance = heuristic(x+1, y);
-			frontier.push_back(child);
-			push_heap(frontier.begin(), frontier.end());
+			child->pathCost = 0;
+			front.push(child);
 		}
 
 		// Up Dir (1)
 		if(maze->canMove(x, y, 1) && !visited[x][y-1]){
-			Node * child = GBFS_tree->insert(current, x, y-1);
+			child = GBFS_tree->insert(current, x, y-1);
 			child->distance = heuristic(x, y-1);
-			frontier.push_back(child);
-			push_heap(frontier.begin(), frontier.end());
+			child->pathCost = 0;
+			front.push(child);
 		}
 
 		// Left Dir (2)
 		if(maze->canMove(x, y, 2) && !visited[x-1][y]){
-			Node * child = GBFS_tree->insert(current, x-1, y);
+			child = GBFS_tree->insert(current, x-1, y);
 			child->distance = heuristic(x-1, y);
-			frontier.push_back(child);
-			push_heap(frontier.begin(), frontier.end());
+			child->pathCost = 0;
+			front.push(child);
 		}
 
 		// Down Dir (3)
 		if(maze->canMove(x, y, 3) && !visited[x][y+1]){
-			Node * child = GBFS_tree->insert(current, x, y+1);
+			child = GBFS_tree->insert(current, x, y+1);
 			child->distance = heuristic(x, y+1);
-			frontier.push_back(child);
-			push_heap(frontier.begin(), frontier.end());
+			child->pathCost = 0;
+			front.push(child);
+		}
+	}
+	return NULL;
+}
+
+Node* MazeSolver::Astar(){
+	// Initialize Tree
+	Astar_tree = new Tree(maze->getStart().x, maze->getStart().y);
+	Node * root = Astar_tree->get_root();
+	root->distance = heuristic(root->x, root->y);
+	root->pathCost = 0;
+
+	// Create frontier
+	priority_queue<Node*, vector<Node*>, indirect_compare> front;
+	front.push(root);
+	
+	// Create visited Array
+	bool ** visited = new bool*[maze->getWidth()];
+	for(int i = 0;i<maze->getWidth();i++){
+		visited[i] = new bool[maze->getHeight()];
+		for(int j = 0;j<maze->getHeight();j++){
+			visited[i][j] = false;
+		}
+	}
+
+	// Iterate through maze
+	while(front.size() > 0){
+		Node * current = front.top();
+		front.pop();
+
+		Astar_expandedNodes++;
+		int x = current->x;
+		int y = current->y;
+		// Don't ejpand if visited
+		visited[x][y] = true;
+		
+		// Return if you get to the goal
+		if(maze->atEnd(x, y)){
+			Astar_cost = current->pathCost + 1;
+			return current;
+		}
+		Node * child = NULL;
+		// Right Dir (0)
+		if(maze->canMove(x, y, 0) && !visited[x+1][y]){
+			child = GBFS_tree->insert(current, x+1, y);
+			child->distance = heuristic(x+1, y);
+			child->pathCost = child->parent->pathCost + 1;
+			front.push(child);
+		}
+
+		// Up Dir (1)
+		if(maze->canMove(x, y, 1) && !visited[x][y-1]){
+			child = GBFS_tree->insert(current, x, y-1);
+			child->distance = heuristic(x, y-1);
+			child->pathCost = child->parent->pathCost + 1;
+			front.push(child);
+		}
+
+		// Left Dir (2)
+		if(maze->canMove(x, y, 2) && !visited[x-1][y]){
+			child = GBFS_tree->insert(current, x-1, y);
+			child->distance = heuristic(x-1, y);
+			child->pathCost = child->parent->pathCost + 1;
+			front.push(child);
+		}
+
+		// Down Dir (3)
+		if(maze->canMove(x, y, 3) && !visited[x][y+1]){
+			child = GBFS_tree->insert(current, x, y+1);
+			child->distance = heuristic(x, y+1);
+			child->pathCost = child->parent->pathCost + 1;
+			front.push(child);
 		}
 	}
 	return NULL;

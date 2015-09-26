@@ -18,7 +18,7 @@ public:
 	
 	Node* GBFS();
 		
-//	Node* Astar();
+	Node* Astar();
 
 	// accessors
 	int getBFSExpandedNodes(){ return BFS_expandedNodes; }
@@ -61,5 +61,6 @@ private:
 
 	int heuristic(int x, int y);
 	int computePathCost(Node *leaf);
+	Node * findMin(vector<Node*> a);
 };
 #endif

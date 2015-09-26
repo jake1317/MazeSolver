@@ -21,10 +21,10 @@ mazeTester.o: mazeTester.cpp
 main.o: main.cpp
 	g++ -c -g -Wall -Wextra main.cpp
 
-solveTester.o:
+solveTester.o: solveTester.cpp
 	g++ -c -g -Wall -Wextra solveTester.cpp
 
-mazeSolver.o:
+mazeSolver.o: mazeSolver.cpp
 	g++ -c -g -Wall -Wextra mazeSolver.cpp
 
 clean:
