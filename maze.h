@@ -22,6 +22,7 @@ class Maze{
 		// Misc Functions
 		void printMaze();
 		bool canMove(int x, int y, int dir);
+		bool canMove(int x, int y, int dir, int n);
         void solveMaze(Node *leaf, string name);
 		// Accessors
 		int getHeight(){ return height; };

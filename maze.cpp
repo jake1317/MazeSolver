@@ -152,6 +152,22 @@ bool Maze::canMove(int x, int y, int dir){
 	return this->maze[newX][newY];
 }
 
+bool Maze::canMove(int x, int y, int dir, int n){
+	int canM = canMove(x,y,dir);
+
+	if(dir == 0)
+		x++; 
+	if(dir == 1)
+		y--;
+	if(dir == 2)
+		x--;
+	if(dir == 3)
+		x++;
+
+	coordinate ghostPos = getGhostPos(n);
+	return canM && x != ghostPos.x && y != ghostPos.y;
+}
+
 bool Maze::atEnd(int x, int y){
 	if(x == this->end.x && y == this->end.y){
 		return true;

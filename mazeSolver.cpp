@@ -290,7 +290,7 @@ Node* MazeSolver::Astar(){
 		}
 		Node * child = NULL;
 		// Right Dir (0)
-		if(maze->canMove(x, y, 0) && !visited[x+1][y]){
+		if(maze->canMove(x, y, 0, current->pathCost) && !visited[x+1][y]){
 			child = GBFS_tree->insert(current, x+1, y);
 			child->distance = heuristic(x+1, y);
 			child->pathCost = child->parent->pathCost + 1;
@@ -298,7 +298,7 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Up Dir (1)
-		if(maze->canMove(x, y, 1) && !visited[x][y-1]){
+		if(maze->canMove(x, y, 1, current->pathCost) && !visited[x][y-1]){
 			child = GBFS_tree->insert(current, x, y-1);
 			child->distance = heuristic(x, y-1);
 			child->pathCost = child->parent->pathCost + 1;
@@ -306,7 +306,7 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Left Dir (2)
-		if(maze->canMove(x, y, 2) && !visited[x-1][y]){
+		if(maze->canMove(x, y, 2, current->pathCost) && !visited[x-1][y]){
 			child = GBFS_tree->insert(current, x-1, y);
 			child->distance = heuristic(x-1, y);
 			child->pathCost = child->parent->pathCost + 1;
@@ -314,7 +314,7 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Down Dir (3)
-		if(maze->canMove(x, y, 3) && !visited[x][y+1]){
+		if(maze->canMove(x, y, 3, current->pathCost) && !visited[x][y+1]){
 			child = GBFS_tree->insert(current, x, y+1);
 			child->distance = heuristic(x, y+1);
 			child->pathCost = child->parent->pathCost + 1;
