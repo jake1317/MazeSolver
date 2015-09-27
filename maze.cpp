@@ -141,7 +141,7 @@ bool Maze::canMove(int x, int y, int dir){
 		newX = x;
 		newY = y + 1;
 	} else {
-		return false;
+		return maze[x][y];
 	}
 
 	// Return false if out of bounds

@@ -43,9 +43,7 @@ public:
 			return *first < *second;
 		}
 	};
-
-private:
-
+protected:
 	Maze * maze;
 
 	Tree* BFS_tree;
@@ -64,7 +62,7 @@ private:
 	int Astar_cost;
 	int AstarGhost_cost;
 	int GBFS_cost;
-
+private:
 	int heuristic(int x, int y);
 	int computePathCost(Node *leaf);
 };
