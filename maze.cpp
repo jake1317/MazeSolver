@@ -181,11 +181,14 @@ void Maze::discoverGhost(){
 	rightGhostWall = incX - 1;
 }
 
-coordinate Maze::getGhostPos(int n){
+Maze::coordinate Maze::getGhostPos(int n){
 	if(ghost.x == -1 && ghost.y == -1){
 		return ghost;
 	}
 	int offset = ghost.x - leftGhostWall;
 	int width = rightGhostWall - leftGhostWall;
-	return zigZag(width, offset, n) + leftGhostWall;
+	struct coordinate out;
+	out.y = ghost.y;
+	out.x = zigZag(width, offset, n) + leftGhostWall;
+	return out;
 }

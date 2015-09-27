@@ -27,7 +27,7 @@ class Maze{
 		int getHeight(){ return height; };
 		int getWidth(){ return width; };
 		coordinate getStart(){ return start; };
-		coordinate getGhostPos(int n);
+		struct coordinate getGhostPos(int n);
 		bool atEnd(int x, int y);
 		coordinate getEnd(){ return end; };
 		int zigZag(int width, int initOffset, int n);
