@@ -262,15 +262,6 @@ Node* MazeSolver::Astar(){
 	// Create frontier
 	priority_queue<Node*, vector<Node*>, indirect_compare> front;
 	front.push(root);
-	
-	// Create visited Array
-	bool ** visited = new bool*[maze->getWidth()];
-	for(int i = 0;i<maze->getWidth();i++){
-		visited[i] = new bool[maze->getHeight()];
-		for(int j = 0;j<maze->getHeight();j++){
-			visited[i][j] = false;
-		}
-	}
 
 	// Iterate through maze
 	while(front.size() > 0){
@@ -280,8 +271,6 @@ Node* MazeSolver::Astar(){
 		Astar_expandedNodes++;
 		int x = current->x;
 		int y = current->y;
-		// Don't ejpand if visited
-		visited[x][y] = true;
 		
 		// Return if you get to the goal
 		if(maze->atEnd(x, y)){
@@ -290,7 +279,7 @@ Node* MazeSolver::Astar(){
 		}
 		Node * child = NULL;
 		// Right Dir (0)
-		if(maze->canMove(x, y, 0, current->pathCost) && !visited[x+1][y]){
+		if(maze->canMove(x, y, 0, current->pathCost)){
 			child = GBFS_tree->insert(current, x+1, y);
 			child->distance = heuristic(x+1, y);
 			child->pathCost = child->parent->pathCost + 1;
@@ -298,7 +287,7 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Up Dir (1)
-		if(maze->canMove(x, y, 1, current->pathCost) && !visited[x][y-1]){
+		if(maze->canMove(x, y, 1, current->pathCost)){
 			child = GBFS_tree->insert(current, x, y-1);
 			child->distance = heuristic(x, y-1);
 			child->pathCost = child->parent->pathCost + 1;
@@ -306,7 +295,7 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Left Dir (2)
-		if(maze->canMove(x, y, 2, current->pathCost) && !visited[x-1][y]){
+		if(maze->canMove(x, y, 2, current->pathCost)){
 			child = GBFS_tree->insert(current, x-1, y);
 			child->distance = heuristic(x-1, y);
 			child->pathCost = child->parent->pathCost + 1;
@@ -314,13 +303,14 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Down Dir (3)
-		if(maze->canMove(x, y, 3, current->pathCost) && !visited[x][y+1]){
+		if(maze->canMove(x, y, 3, current->pathCost)){
 			child = GBFS_tree->insert(current, x, y+1);
 			child->distance = heuristic(x, y+1);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 	}
+	cout << "ayy" << endl;
 	return NULL;
 }
 

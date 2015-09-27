@@ -45,10 +45,10 @@ bool ** Maze::parseMaze(vector<string> * maze){
 			// Get important chars
 			char currChar = (*maze)[y].at(x);
 			// Assign boolean
-			if(currChar == ' ' || currChar == 'P' || currChar == '.'){
-				outputMaze[x][y] = true;
-			} else {
+			if(currChar == '%'){
 				outputMaze[x][y] = false;
+			} else {
+				outputMaze[x][y] = true;
 			}
 			// Assign start and end points
 			if(currChar == '.'){
@@ -162,10 +162,10 @@ bool Maze::canMove(int x, int y, int dir, int n){
 	if(dir == 2)
 		x--;
 	if(dir == 3)
-		x++;
+		y++;
 
 	coordinate ghostPos = getGhostPos(n);
-	return canM && x != ghostPos.x && y != ghostPos.y;
+	return canM && (x != ghostPos.x || y != ghostPos.y);
 }
 
 bool Maze::atEnd(int x, int y){
@@ -186,12 +186,12 @@ int Maze::zigZag(int width, int initOffset, int n){
 
 void Maze::discoverGhost(){
 	int decX = ghost.x;
-	while(maze[decX][ghost.y] != '%'){
+	while(maze[decX][ghost.y]){
 		decX--;
 	}
 	leftGhostWall = decX + 1;
 	int incX  = ghost.x;
-	while(maze[incX][ghost.y] != '%'){
+	while(maze[incX][ghost.y]){
 		incX++;
 	}
 	rightGhostWall = incX - 1;
