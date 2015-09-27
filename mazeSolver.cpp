@@ -340,3 +340,4 @@ int MazeSolver::computePathCost(Node * leaf){
 	}
 	return pathCost;
 }
+

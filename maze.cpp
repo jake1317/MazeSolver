@@ -8,10 +8,11 @@ Maze::Maze(string filename){
 	// Assign Height and Width
 	height = file->size();
 	width = (int) (*file)[0].length()-1;
-	ghost.x = ghost.y = -1;
-	ghostDir = -1;
+	ghost.x = ghost.y = leftGhostWall = rightGhostWall = -1;
 	// Get maze array
 	maze = parseMaze(file);
+	if(ghost.x > -1)
+		discoverGhost();
 	delete(file);
 }
 
@@ -56,6 +57,9 @@ bool ** Maze::parseMaze(vector<string> * maze){
 			} else if(currChar == 'P'){
 				start.x = x;
 				start.y = y;
+			} else if(currChar == 'G'){
+				ghost.x = x;
+				ghost.y = y;
 			}
 		}
 	}
@@ -154,4 +158,38 @@ bool Maze::atEnd(int x, int y){
 		return true;
 	}
 	return false;
+}
+
+int Maze::zigZag(int width, int initOffset, int n){
+	n += initOffset;
+	int out = n%(width*2);
+	if(out > width){
+		out = (width*2) - out;
+	}
+	return out;
+}
+
+void Maze::discoverGhost(){
+	int decX = ghost.x;
+	while(maze[decX][ghost.y] != '%'){
+		decX--;
+	}
+	leftGhostWall = decX + 1;
+	int incX  = ghost.x;
+	while(maze[incX][ghost.y] != '%'){
+		incX++;
+	}
+	rightGhostWall = incX - 1;
+}
+
+Maze::coordinate Maze::getGhostPos(int n){
+	if(ghost.x == -1 && ghost.y == -1){
+		return ghost;
+	}
+	int offset = ghost.x - leftGhostWall;
+	int width = rightGhostWall - leftGhostWall;
+	struct coordinate out;
+	out.y = ghost.y;
+	out.x = zigZag(width, offset, n) + leftGhostWall;
+	return out;
 }

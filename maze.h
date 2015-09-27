@@ -27,17 +27,21 @@ class Maze{
 		int getHeight(){ return height; };
 		int getWidth(){ return width; };
 		coordinate getStart(){ return start; };
+		struct coordinate getGhostPos(int n);
 		bool atEnd(int x, int y);
 		coordinate getEnd(){ return end; };
+		int zigZag(int width, int initOffset, int n);
 	private:
 		vector<string> * readFile(string filename);
 		bool ** parseMaze(vector<string> * maze);
+		void discoverGhost();
 		int height;
 		int width;
 		coordinate start;
 		coordinate end;
 		coordinate ghost;
-		int ghostDir;
+		int leftGhostWall;
+		int rightGhostWall;
 		bool ** maze;
 };
 #endif
