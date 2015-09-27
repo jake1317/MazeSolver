@@ -8,6 +8,8 @@ Maze::Maze(string filename){
 	// Assign Height and Width
 	height = file->size();
 	width = (int) (*file)[0].length() - 1;
+	ghost.x = ghost.y = -1;
+	ghostDir = -1;
 	// Get maze array
 	maze = parseMaze(file);
 	delete(file);

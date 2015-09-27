@@ -4,7 +4,7 @@
 using namespace std;
 
 int main(){
-	Maze *maze = new Maze("openMaze.txt");	
+	Maze *maze = new Maze("bigMaze.txt");	
 	MazeSolver *solution = new MazeSolver(maze);
 
   	Node *final = solution->BFS();
