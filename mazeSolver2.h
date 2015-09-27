@@ -1,15 +1,19 @@
-#ifndef MAZE_SOLVER_H
-#define MAZE_SOLVER_H
+#ifndef MAZE_SOLVER2_H
+#define MAZE_SOLVER2_H
 
-#include "maze.h"
-#include "tree.h"
+#include "mazeSolver.h"
 
-class MazeSolver2 : Public MazeSolver
+class MazeSolver2 : public MazeSolver
 {
 public:
 	
+
+    MazeSolver2(Maze *newMaze);
+	
+	~MazeSolver2();
 private:
 	int facing(Node *current, Node *par);
 	int computePathCost(Node *leaf);
+	int heuristic(int x, int y);
 };
 #endif

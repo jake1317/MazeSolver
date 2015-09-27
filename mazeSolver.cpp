@@ -326,7 +326,9 @@ Node* MazeSolver::Astar(){
 
 
 int MazeSolver::heuristic(int x, int y){
+
 	return abs(maze->getEnd().x - x) + abs(maze->getEnd().y - y);
+
 }
 
 int MazeSolver::computePathCost(Node * leaf){

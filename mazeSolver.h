@@ -40,9 +40,7 @@ public:
 			return *first < *second;
 		}
 	};
-
-private:
-
+protected:
 	Maze * maze;
 
 	Tree* BFS_tree;
@@ -58,7 +56,7 @@ private:
 	int DFS_cost;
 	int Astar_cost;
 	int GBFS_cost;
-
+private:
 	int heuristic(int x, int y);
 	int computePathCost(Node *leaf);
 	Node * findMin(vector<Node*> a);
