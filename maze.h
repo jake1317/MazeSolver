@@ -36,6 +36,8 @@ class Maze{
 		int width;
 		coordinate start;
 		coordinate end;
+		coordinate ghost;
+		int ghostDir;
 		bool ** maze;
 };
 #endif

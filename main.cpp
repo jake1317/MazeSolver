@@ -5,7 +5,7 @@ using namespace std;
 
 int main(){
 	Maze *maze = new Maze("bigMaze.txt");	
-	MazeSolver2 *solution = new MazeSolver2(maze);
+	MazeSolver2 *solution = new MazeSolver2(maze); 
 
 
 	Node *final = solution->GBFS();
