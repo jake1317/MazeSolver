@@ -1,5 +1,10 @@
 For this MP we create a number of different classes and structs. Below are high level discriptions of the objects we made.
 
+baim2 did: Node struct, Tree Class, BFS DFS in mazeSolver, mazeSolver2
+
+jleonrd2 did: maze Class, GBFS Astar in mazeSolver, and all ghost additions
+
+
 Node struct: A node in the tree helping represent the maze. This node contains information about its heuristic, the path cost, its location in the maze, a pointer to the parent node, and four pointers to the four surounding nodes.
 
 Tree Class: The tree class helps keep track of the parts of the maze that have been explored by the search algorithms. It has a root node and in insert function that adds new places in the maze to the tree.
