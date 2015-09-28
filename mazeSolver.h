@@ -27,14 +27,15 @@ public:
 	int getDFSExpandedNodes(){ return DFS_expandedNodes; }
 	int getGBFSExpandedNodes(){ return GBFS_expandedNodes; }
 	int getAstarExpandedNodes(){ return Astar_expandedNodes; }
-	int getAstarGhostExpandedNodes(){ return Astar_expandedNodes; }
+	int getAstarNoRSDExpandedNodes(){ return AstarNoRSD_expandedNodes; }
 
 	int getBFSCost(){ return BFS_cost; }
 	int getDFSCost(){ return DFS_cost; }
 	int getGBFSCost(){ return GBFS_cost; }
 	int getAstarCost(){ return Astar_cost; }
+	int getAstarNoRSDCost(){ return AstarNoRSD_cost; }
 
-	// Comparison Struct
+	// Dereferencing Comparison Struct
 	struct indirect_compare
 	{
 		template <typename T>
@@ -46,22 +47,25 @@ public:
 protected:
 	Maze * maze;
 
+	// Search Trees
 	Tree* BFS_tree;
 	Tree* DFS_tree;
-	Tree* Astar_tree;
-	Tree* AstarGhost_tree;
 	Tree* GBFS_tree;
+	Tree* Astar_tree;
+	Tree* AstarNoRSD_tree;
 
+	// Expanded nodes and cost variables
 	int BFS_expandedNodes;
 	int DFS_expandedNodes;
-	int Astar_expandedNodes;
-	int AstarGhost_expandedNodes;
 	int GBFS_expandedNodes;
+	int Astar_expandedNodes;
+	int AstarNoRSD_expandedNodes;
 	int BFS_cost;
 	int DFS_cost;
-	int Astar_cost;
-	int AstarGhost_cost;
 	int GBFS_cost;
+	int Astar_cost;
+	int AstarNoRSD_cost;
+
 private:
 	int heuristic(int x, int y);
 	int computePathCost(Node *leaf);

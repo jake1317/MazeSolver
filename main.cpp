@@ -8,21 +8,34 @@ int main(){
 	Maze *maze = new Maze("smallGhost.txt");	
 	MazeSolver *solution = new MazeSolver(maze); 
 
-	Node * final = solution->AstarNoVisit();
-	maze->solveMaze(final, "smallGhostAstar.txt", solution->getAstarExpandedNodes(), solution->getAstarCost());
-/*
+	Node * final = solution->AstarNoRSD();
+	maze->solveMaze(final, "smallGhostAstar.txt", solution->getAstarNoRSDExpandedNodes(), solution->getAstarNoRSDCost());
+
+	delete maze;
+	delete solution;
+
 	maze = new Maze("mediumGhost.txt");	
 	solution = new MazeSolver(maze); 
 
-	final = solution->Astar();
+	final = solution->AstarNoRSD();
 	maze->solveMaze(final, "mediumGhostAstar.txt", solution->getAstarExpandedNodes(), solution->getAstarCost());
+
+	delete maze;
+	delete solution;
 
 	maze = new Maze("bigGhost.txt");	
 	solution = new MazeSolver(maze); 
 
-	final = solution->Astar();
+	final = solution->AstarNoRSD();
 	maze->solveMaze(final, "bigGhostAstar.txt", solution->getAstarExpandedNodes(), solution->getAstarCost());
-	Node * final = solution->BFS();
+
+	delete maze;
+	delete solution;
+
+	maze = new Maze("openMaze.txt");	
+	solution = new MazeSolver(maze); 
+
+	final = solution->BFS();
 	maze->solveMaze(final, "openMazeBFS.txt",solution->getBFSExpandedNodes(), solution->getBFSCost());
 
 	final = solution->DFS();
@@ -31,14 +44,11 @@ int main(){
 	final = solution->GBFS();
 	maze->solveMaze(final, "openMazeGBFS.txt",solution->getGBFSExpandedNodes(), solution->getGBFSCost());
 
-	cout << "Open Done" << endl;
-
 	final = solution->Astar();
 	maze->solveMaze(final, "openMazeAstar.txt",solution->getAstarExpandedNodes(), solution->getAstarCost());
 	
-
-//	delete maze;
-//	delete solution;
+	delete maze;
+	delete solution;
 	
 	maze = new Maze("mediumMaze.txt");	
 	solution = new MazeSolver(maze); 
@@ -55,8 +65,8 @@ int main(){
 	final = solution->Astar();
 	maze->solveMaze(final, "mediumMazeAstar.txt",solution->getAstarExpandedNodes(), solution->getAstarCost());
 
-//	delete maze;
-//	delete solution;
+	delete maze;
+	delete solution;
 
 	maze = new Maze("bigMaze.txt");	
 	solution = new MazeSolver(maze); 
@@ -73,8 +83,7 @@ int main(){
 	final = solution->Astar();
 	maze->solveMaze(final, "bigMazeAstar.txt",solution->getAstarExpandedNodes(), solution->getAstarCost());
 
-//	delete maze;
-//	delete solution;
-*/
+	delete maze;
+	delete solution;
 
 }
