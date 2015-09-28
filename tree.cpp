@@ -41,11 +41,13 @@ Node* Tree::get_root()
 {
 	return root;
 }
-
+//inserts a new node into the tree in the correct position
 Node* Tree::insert(Node * cur, int X, int Y)
 {
 	int cur_x = cur->x;
 	int cur_y = cur->y;
+	
+	//insert left
 	if((X == cur_x - 1) && Y == cur_y)
 	{
 		cur->left = new Node;
@@ -58,6 +60,8 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->left->down = NULL;
 		return cur->left;
 	}
+	
+	//insert right
 	else if((X == cur_x+1) && Y == cur_y)
 	{
 		cur->right = new Node;
@@ -70,6 +74,8 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->right->down = NULL;
 		return cur->right;
 	}
+	
+	//insert up
 	else if(X == cur_x && (Y+1) == (cur_y))
 	{
 		cur->up = new Node;
@@ -82,6 +88,8 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->up->down = NULL;
 		return cur->up;
 	}
+	
+	//insert down
 	else if(X == cur_x && (Y -1)== cur_y)
 	{
 		cur->down = new Node;

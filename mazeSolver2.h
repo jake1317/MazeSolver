@@ -17,5 +17,6 @@ private:
 	int facing(Node *current, Node *par);
 	int computePathCost(Node *leaf);
 	int heuristic(int x, int y, Node* cur);
+	int heuristic(int x, int y);
 };
 #endif

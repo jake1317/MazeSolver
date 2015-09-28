@@ -11,7 +11,7 @@ public:
     MazeSolver(Maze *newMaze);
 	
 	~MazeSolver();
-	
+//solve functions for different searches	
 	Node* BFS();
 	
 	Node* DFS();

@@ -1,0 +1,23 @@
+For this MP we create a number of different classes and structs. Below are high level discriptions of the objects we made.
+
+Node struct: A node in the tree helping represent the maze. This node contains information about its heuristic, the path cost, its location in the maze, a pointer to the parent node, and four pointers to the four surounding nodes.
+
+Tree Class: The tree class helps keep track of the parts of the maze that have been explored by the search algorithms. It has a root node and in insert function that adds new places in the maze to the tree.
+
+Maze Class: Our maze class contains a coorinate struct inside of it to help manage the x and y coordinates of the maze. This class reads the input maze file and then converts that to a boolean double array of walls being false and open spaces being true. It also contains the start and end points of the maze, and variables to track the ghost in part 3. This class has accessors to the variables, a can move function to see if a move is valid, and a solve maze function that prints out the maze solution.
+
+MazeSolver Class: This class contains trees, expanded node variables, and cost variables for all the different ways to solve the maze. There are functions to solve the maze in the four ways specified in the mp, accesors to the variables, and heuristic and path cost functions.
+
+MazeSolver2 class: This class is an inherited class of MazeSolver that is utilized to find the soultions to the second part of the mp with all the different cost and heuristic specifications. Astar is reimplemented slightly different to be able to accurately get the cost of the paths, and there are multiple heuristic functions for part two and part 4 (the choose 1 of 3 part) of the mp.
+
+Part 1:
+BFS: For our BFS search we use a queue as our frontier and keep track of visited nodes in order to find the optimal solution. We loop through a while loop until we find a solution or until the frontier runs out of nodes
+
+DFS: For our DFS search we use a stack as our frontier and keep track of visited nodes in order to find the optimal solution. We loop through a while loop until we find a solution or until the frontier runs out of nodes
+
+Part 2:
+For part two the heuristic function that we use takes into account the cost of turning. Through clever math we are able to guess the minimum amount of times that the pacman must turn if there were no walls in the maze. The number of turns ends up being somewhere between 0 and 2. This is admissible because we assume there are no walls and look for the minimum amount of turning necessary for the pacman. That way we are never over estimating our number of turns. We see that the number of expanded nodes decreases and the more turning there is the less nodes we expand, and the optimal solution path stays the same as expected.
+
+
+Part 4 (one of three option):
+For this part we created a heuristic function that reduced the number of expanded nodes but was not admissible. We count the number of walls to the solution on an arbitrary path and add that to the cost of our heuristic. This is not admissible because there could be a path with less walls and the addition of each wall is not exactly an addition of one to the cost path. But this heuristic decreased the number of expanded nodes for all clases and maintained the optimal solution.
