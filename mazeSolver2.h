@@ -16,7 +16,9 @@ public:
 private:
 	int facing(Node *current, Node *par);
 	int computePathCost(Node *leaf);
+	//admissible heuristic
 	int heuristic(int x, int y, Node* cur);
+	//non admissible heuristic	
 	int heuristic(int x, int y);
 };
 #endif
