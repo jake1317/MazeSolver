@@ -37,7 +37,7 @@ Node* MazeSolver2::Astar(){
 	// Initialize Tree
 	Astar_tree = new Tree(maze->getStart().x, maze->getStart().y);
 	Node * root = Astar_tree->get_root();
-	root->distance = heuristic(root->x, root->y,root);
+	root->distance = heuristic(root->x, root->y);
 	root->pathCost = 0;
 
 	// Create frontier
@@ -66,39 +66,39 @@ Node* MazeSolver2::Astar(){
 		
 		// Return if you get to the goal
 		if(maze->atEnd(x, y)){
-			Astar_cost = computePathCost(current);
+			Astar_cost = current->pathCost + 1;
 			return current;
 		}
 		Node * child = NULL;
 		// Right Dir (0)
 		if(maze->canMove(x, y, 0) && !visited[x+1][y]){
 			child = GBFS_tree->insert(current, x+1, y);
-			child->distance = heuristic(x+1, y, child);
-			child->pathCost = computePathCost(child);
+			child->distance = heuristic(x+1, y);
+			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Up Dir (1)
 		if(maze->canMove(x, y, 1) && !visited[x][y-1]){
 			child = GBFS_tree->insert(current, x, y-1);
-			child->distance = heuristic(x, y-1, child);
-			child->pathCost = computePathCost(child); 
+			child->distance = heuristic(x, y-1); 
+			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Left Dir (2)
 		if(maze->canMove(x, y, 2) && !visited[x-1][y]){
 			child = GBFS_tree->insert(current, x-1, y);
-			child->distance = heuristic(x-1, y, child);
-			child->pathCost = computePathCost(child);
+			child->distance = heuristic(x-1, y);	
+			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Down Dir (3)
 		if(maze->canMove(x, y, 3) && !visited[x][y+1]){
 			child = GBFS_tree->insert(current, x, y+1);
-			child->distance = heuristic(x, y+1, child);
-			child->pathCost = computePathCost(child);
+			child->distance = heuristic(x, y+1);
+			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 	}
@@ -107,7 +107,7 @@ Node* MazeSolver2::Astar(){
 
 
 
-
+//path cost function for part 2 of the mp, utilize this when charging for steps
 int MazeSolver2::computePathCost(Node * leaf){
 	Node * current = leaf;
 	Node * par = current->parent;
@@ -130,7 +130,7 @@ int MazeSolver2::computePathCost(Node * leaf){
 	}
 	return pathCost;
 }
-
+//helper function to determine what direction pacman is facing
 int MazeSolver2::facing(Node *current, Node *par)
 {
 	int newdir;
@@ -146,7 +146,7 @@ int MazeSolver2::facing(Node *current, Node *par)
 		newdir=3;
 	return newdir;
 }
-
+//the admissible manhattan heuristic along with the commeneted out "my heuristic" addition
 int MazeSolver2::heuristic(int x, int y, Node* cur){
 	int turns, dir = facing(cur, cur->parent);
 	int x_dist = maze->getEnd().x - x;
@@ -163,4 +163,33 @@ int MazeSolver2::heuristic(int x, int y, Node* cur){
 	return turns + 2*(abs(x_dist) + abs(y_dist));
 */	return abs(x_dist) + abs(y_dist);
 }
+//the heuristic for part 3 that checks to see the walls in the way of the solution that is not admissible
+int MazeSolver2::heuristic(int x, int y){
 
+	int x_dist = maze->getEnd().x - x;
+	int y_dist = maze->getEnd().y - y;
+	int i, walls = 0;
+	for(i = x; i < maze->getEnd().x; i++)
+	{
+		if(!maze->canMove(i,y,-1))
+			walls++;
+	}
+	
+	for(i = x; i > maze->getEnd().x; i--)
+	{
+		if(!maze->canMove(i,y,-1))
+			walls++;
+	}
+
+	for(i = y; i < maze->getEnd().y; i++)
+	{
+		if(!maze->canMove(maze->getEnd().x,i,-1))
+			walls++;
+	}	
+	for(i = y; i > maze->getEnd().y; i--)
+	{
+		if(!maze->canMove(maze->getEnd().x,i,-1))
+			walls++;
+	}
+	return walls + abs(x_dist) + abs(y_dist);
+}

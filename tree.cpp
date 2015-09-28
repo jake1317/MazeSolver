@@ -41,7 +41,7 @@ Node* Tree::get_root()
 {
 	return root;
 }
-
+//inserts a new node into the tree in the correct position
 Node* Tree::insert(Node * cur, int X, int Y)
 {
 	int cur_x = cur->x;

@@ -112,7 +112,9 @@ void Maze::solveMaze(Node *leaf, string name, int nodes, int path)
         {   
             if(maze[i][j] == true)
             {
-                if(mazeSolution[pair<int,int>(i,j)] == true)
+		if(i == start.x && j == start.y)
+		    outputMaze << "P";
+                else if(mazeSolution[pair<int,int>(i,j)] == true)
                     outputMaze << ".";
                 else
                     outputMaze << " ";

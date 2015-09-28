@@ -1,6 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
-
+//this is the struct for a node in the tree
 struct Node
 {
 	int x;
@@ -12,6 +12,7 @@ struct Node
 	Node *up;
 	Node *down;
 	Node *parent;
+	//this is a comparison operator
 	bool operator<(const Node& a){
 		return (this->pathCost + this->distance) > (a.pathCost + a.distance);
 	}

@@ -53,7 +53,7 @@ Node* MazeSolver::BFS()
 			visited[i][j] = false;
 	}
 	visited[maze->getStart().x][maze->getStart().y] = true;
-	
+	//keep checking nodes while the frontier is not empty	
 	while(!frontier.empty())
 	{
 		here = frontier.front();
@@ -63,6 +63,7 @@ Node* MazeSolver::BFS()
 		if(maze->canMove(here->x,here->y,0) && !visited[here->x+1][here->y])
 		{
 			next = BFS_tree->insert(here,here->x+1,here->y);
+			//return if at solution
 			if(maze->atEnd(next->x, next->y)){
 				BFS_cost = computePathCost(next);
 				return next;
@@ -104,7 +105,7 @@ Node* MazeSolver::BFS()
 			visited[here->x][here->y+1] = true;
 		}
 	}
-	return here;
+	return NULL;
 }
 
     
@@ -126,7 +127,7 @@ Node* MazeSolver::DFS()
 			visited[i][j] = false;
 	}
 	visited[maze->getStart().x][maze->getStart().y] = true;
-	
+	//keep checking nodes while frontier is not empty	
 	while(!frontier.empty())
 	{
 		here = frontier.top();
@@ -136,6 +137,7 @@ Node* MazeSolver::DFS()
 		if(maze->canMove(here->x,here->y,0) && !visited[here->x+1][here->y])
 		{
 			next = DFS_tree->insert(here,here->x+1,here->y);
+			//return if at solution
 			if(next->x == maze->getEnd().x && next->y == maze->getEnd().y){
 				DFS_cost = computePathCost(next);
 				return next;
@@ -177,7 +179,7 @@ Node* MazeSolver::DFS()
 			visited[here->x][here->y+1] = true;
 		}
     }
-	return here;
+	return NULL;
 }
 
 
@@ -226,7 +228,7 @@ Node* MazeSolver::GBFS(){
 		}
 
 		// Up Dir (1)
-		if(maze->canMove(x, y, 1) && !visited[x][y-1]){
+if(maze->canMove(x, y, 1) && !visited[x][y-1]){
 			child = GBFS_tree->insert(current, x, y-1);
 			child->distance = heuristic(x, y-1);
 			child->pathCost = 0;
@@ -324,13 +326,13 @@ Node* MazeSolver::Astar(){
 	return NULL;
 }
 
-
+//Manhattan heuristic
 int MazeSolver::heuristic(int x, int y){
 
 	return abs(maze->getEnd().x - x) + abs(maze->getEnd().y - y);
 
 }
-
+//find the path cost for a node
 int MazeSolver::computePathCost(Node * leaf){
 	Node * current = leaf;
 	int pathCost = 0;
