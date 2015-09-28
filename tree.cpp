@@ -46,18 +46,22 @@ Node* Tree::insert(Node * cur, int X, int Y)
 {
 	int cur_x = cur->x;
 	int cur_y = cur->y;
+	
+	//insert left
 	if((X == cur_x - 1) && Y == cur_y)
 	{
 		cur->left = new Node;
 		cur->left->x = X;
 		cur->left->y = Y;
 		cur->left->parent = cur;
-		cur->left->right = cur;
+		cur->left->right = NULL;
 		cur->left->left = NULL;
 		cur->left->up = NULL;
 		cur->left->down = NULL;
 		return cur->left;
 	}
+	
+	//insert right
 	else if((X == cur_x+1) && Y == cur_y)
 	{
 		cur->right = new Node;
@@ -65,11 +69,13 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->right->y = Y;
 		cur->right->parent = cur;
 		cur->right->right = NULL;
-		cur->right->left = cur;
+		cur->right->left = NULL;
 		cur->right->up = NULL;
 		cur->right->down = NULL;
 		return cur->right;
 	}
+	
+	//insert up
 	else if(X == cur_x && (Y+1) == (cur_y))
 	{
 		cur->up = new Node;
@@ -79,9 +85,11 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->up->right = NULL;
 		cur->up->left = NULL;
 		cur->up->up = NULL;
-		cur->up->down = cur;
+		cur->up->down = NULL;
 		return cur->up;
 	}
+	
+	//insert down
 	else if(X == cur_x && (Y -1)== cur_y)
 	{
 		cur->down = new Node;
@@ -90,7 +98,7 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->down->parent = cur;
 		cur->down->right = NULL;
 		cur->down->left = NULL;
-		cur->down->up = cur;
+		cur->down->up = NULL;
 		cur->down->down = NULL;
 		return cur->down;
 	}

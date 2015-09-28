@@ -1,0 +1,11 @@
+For this MP we create a number of different classes and structs. Below are high level discriptions of the objects we made.
+
+Node struct: A node in the tree helping represent the maze. This node contains information about its heuristic, the path cost, its location in the maze, a pointer to the parent node, and four pointers to the four surounding nodes.
+
+Tree Class: The tree class helps keep track of the parts of the maze that have been explored by the search algorithms. It has a root node and in insert function that adds new places in the maze to the tree.
+
+Maze Class: Our maze class contains a coorinate struct inside of it to help manage the x and y coordinates of the maze. This class reads the input maze file and then converts that to a boolean double array of walls being false and open spaces being true. It also contains the start and end points of the maze, and variables to track the ghost in part 3. This class has accessors to the variables, a can move function to see if a move is valid, and a solve maze function that prints out the maze solution.
+
+MazeSolver Class: This class contains trees, expanded node variables, and cost variables for all the different ways to solve the maze. There are functions to solve the maze in the four ways specified in the mp, accesors to the variables, and heuristic and path cost functions.
+
+MazeSolver2 class: This class is an inherited class of MazeSolver that is utilized to find the soultions to the second part of the mp with all the different cost and heuristic specifications. Astar is reimplemented slightly different to be able to accurately get the cost of the paths, and there are multiple heuristic functions for part two and part 4 (the choose 1 of 3 part) of the mp.

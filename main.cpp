@@ -5,11 +5,11 @@ using namespace std;
 
 int main(){
 	Maze *maze = new Maze("mediumMaze.txt");	
-	MazeSolver2 *solution = new MazeSolver2(maze); 
+	MazeSolver *solution = new MazeSolver(maze); 
 
 
 
 	Node *final = solution->Astar();	
-	maze->solveMaze(final, "mediumMaze3.txt", solution->getAstarExpandedNodes(), solution->getAstarCost());
 
+	delete maze;
 }
