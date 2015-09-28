@@ -24,10 +24,13 @@ Maze::~Maze(){
 }
 
 vector<string> * Maze::readFile(string filename){
+	// open file, initialize variables
 	ifstream mazeFile;
 	mazeFile.open(filename.c_str());
 	vector<string> * fileLines = new vector<string>();
 	string line;
+
+	// Iterate through file, add to vector
 	while(mazeFile.is_open() && getline(mazeFile, line)){
 		fileLines->push_back(line);
 	}
@@ -66,43 +69,17 @@ bool ** Maze::parseMaze(vector<string> * maze){
 	return outputMaze;
 }
 
-void Maze::printMaze(){
-	// Print start and end coordinates
-	cout << "Start: (" << start.x << ", " << start.y << ")" << endl;
-	cout << "End: (" << end.x << ", " << end.y << ")" << endl;
-	// Iterate through Array
-	for(int y = 0;y < this->height;y++){
-		for(int x = 0;x < this->width;x++){
-			// if coordinates are start or end,
-			// Print p or .
-			if(start.x == x && start.y == y){
-				cout << 'P';
-				continue;
-			} else if(end.x == x && end.y == y){
-				cout << '.';
-				continue;
-			}
-			// Print wall and spaces
-			if(maze[x][y]){
-				cout << ' ';
-			} else{
-				cout << '%';
-			}
-		}
-		cout << endl;
-	}
-}
-
 void Maze::solveMaze(Node *leaf, string name, int nodes, int path)
 {
-    map<pair<int,int>,bool> mazeSolution;
+    map<pair<int,int>,int> mazeSolution;
     Node *cur = leaf;
     pair<int,int> curPosition;
     while(cur != NULL)
     {
         curPosition.first = cur->x;
         curPosition.second = cur->y;
-        mazeSolution.insert(pair<pair<int,int>,bool>(curPosition,true));
+		mazeSolution[curPosition]++;
+        //mazeSolution.insert(pair<pair<int,int>,int>(curPosition,1));
         cur = cur->parent;
     }
     ofstream outputMaze(name.c_str());
@@ -112,8 +89,10 @@ void Maze::solveMaze(Node *leaf, string name, int nodes, int path)
         {   
             if(maze[i][j] == true)
             {
-                if(mazeSolution[pair<int,int>(i,j)] == true)
+                if(mazeSolution[pair<int,int>(i,j)] == 1)
                     outputMaze << ".";
+				else if(mazeSolution[pair<int,int>(i,j)] > 1)
+					outputMaze << mazeSolution[pair<int,int>(i,j)];
                 else
                     outputMaze << " ";
             }

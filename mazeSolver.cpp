@@ -291,44 +291,43 @@ Node* MazeSolver::Astar(){
 
 		Node * child = NULL;
 		// Right Dir (0)
-		if(maze->canMove(x, y, 0, current->pathCost) && !visited[x+1][y]){
-			child = GBFS_tree->insert(current, x+1, y);
+		if(maze->canMove(x, y, 0) && !visited[x+1][y]){
+			child = Astar_tree->insert(current, x+1, y);
 			child->distance = heuristic(x+1, y);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Up Dir (1)
-		if(maze->canMove(x, y, 1, current->pathCost) && !visited[x][y-1]){
-			child = GBFS_tree->insert(current, x, y-1);
+		if(maze->canMove(x, y, 1) && !visited[x][y-1]){
+			child = Astar_tree->insert(current, x, y-1);
 			child->distance = heuristic(x, y-1);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Left Dir (2)
-		if(maze->canMove(x, y, 2, current->pathCost) && !visited[x-1][y]){
-			child = GBFS_tree->insert(current, x-1, y);
+		if(maze->canMove(x, y, 2) && !visited[x-1][y]){
+			child = Astar_tree->insert(current, x-1, y);
 			child->distance = heuristic(x-1, y);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Down Dir (3)
-		if(maze->canMove(x, y, 3, current->pathCost) && !visited[x][y+1]){
-			child = GBFS_tree->insert(current, x, y+1);
+		if(maze->canMove(x, y, 3) && !visited[x][y+1]){
+			child = Astar_tree->insert(current, x, y+1);
 			child->distance = heuristic(x, y+1);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 	}
-	cout << "ayy" << endl;
 	return NULL;
 }
 
 Node* MazeSolver::AstarNoRSD(){
 	// Initialize Tree
-	Astar_tree = new Tree(maze->getStart().x, maze->getStart().y);
+	AstarNoRSD_tree = new Tree(maze->getStart().x, maze->getStart().y);
 	Node * root = Astar_tree->get_root();
 	root->distance = heuristic(root->x, root->y);
 	root->pathCost = 0;
@@ -342,63 +341,57 @@ Node* MazeSolver::AstarNoRSD(){
 		Node * current = front.top();
 		front.pop();
 
-		Astar_expandedNodes++;
+		// Increment expanded nodes counter
+		AstarNoRSD_expandedNodes++;
+	
 		int x = current->x;
 		int y = current->y;
 		
 		// Return if you get to the goal
 		if(maze->atEnd(x, y)){
-			Astar_cost = current->pathCost + 1;
+			AstarNoRSD_cost = current->pathCost + 1;
 			return current;
 		}
-/*	
-		cout << "Position: (" << x << ", " << y << ") Level:" << current->pathCost << endl;
-		cout << "Ghost: (" << maze->getGhostPos(current->pathCost).x << ", " << maze->getGhostPos(current->pathCost).y << ") Level:" << current->pathCost << endl;
-		cout << "Right: " << maze->canMove(x, y, 0, current->pathCost) << " Down: " << maze->canMove(x, y, 1, current->pathCost) << " Left: " << maze->canMove(x, y, 2, current->pathCost) << " Up: " << maze->canMove(x, y, 3, current->pathCost) << endl << endl;
-		*/
-		//cout << current->pathCost << " " << Astar_expandedNodes << endl;
+
 		Node * child = NULL;
 		// Right Dir (0)
-		if(maze->canMove(x, y, 0, current->pathCost)){
-			child = Astar_tree->insert(current, x+1, y);
+		if(maze->canMove(x, y, 0, current->pathCost + 1)){
+			child = AstarNoRSD_tree->insert(current, x+1, y);
 			child->distance = heuristic(x+1, y);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Up Dir (1)
-		if(maze->canMove(x, y, 1, current->pathCost)){
-			child = Astar_tree->insert(current, x, y-1);
+		if(maze->canMove(x, y, 1, current->pathCost + 1)){
+			child = AstarNoRSD_tree->insert(current, x, y-1);
 			child->distance = heuristic(x, y-1);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Left Dir (2)
-		if(maze->canMove(x, y, 2, current->pathCost)){
-			child = Astar_tree->insert(current, x-1, y);
+		if(maze->canMove(x, y, 2, current->pathCost + 1)){
+			child = AstarNoRSD_tree->insert(current, x-1, y);
 			child->distance = heuristic(x-1, y);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 
 		// Down Dir (3)
-		if(maze->canMove(x, y, 3, current->pathCost)){
-			child = Astar_tree->insert(current, x, y+1);
+		if(maze->canMove(x, y, 3, current->pathCost + 1)){
+			child = AstarNoRSD_tree->insert(current, x, y+1);
 			child->distance = heuristic(x, y+1);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
 		}
 	}
-	cout << "ayy" << endl;
 	return NULL;
 }
 
 
 int MazeSolver::heuristic(int x, int y){
-
 	return abs(maze->getEnd().x - x) + abs(maze->getEnd().y - y);
-
 }
 
 int MazeSolver::computePathCost(Node * leaf){
