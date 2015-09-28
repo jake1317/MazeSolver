@@ -20,7 +20,7 @@ public:
 		
 	Node* Astar();
 
-	Node* AstarGhost();
+	Node* AstarNoRSD();
 
 	// accessors
 	int getBFSExpandedNodes(){ return BFS_expandedNodes; }

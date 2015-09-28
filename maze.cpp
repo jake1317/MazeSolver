@@ -7,7 +7,7 @@ Maze::Maze(string filename){
 	vector<string> * file = readFile(filename);
 	// Assign Height and Width
 	height = file->size();
-	width = (int) (*file)[0].length()-1;
+	width = (int) (*file)[0].length();
 	ghost.x = ghost.y = leftGhostWall = rightGhostWall = -1;
 	// Get maze array
 	maze = parseMaze(file);
@@ -154,7 +154,7 @@ bool Maze::canMove(int x, int y, int dir){
 }
 
 bool Maze::canMove(int x, int y, int dir, int n){
-	int canM = canMove(x,y,dir);
+	bool canM = canMove(x,y,dir);
 
 	if(dir == 0)
 		x++; 
@@ -165,7 +165,7 @@ bool Maze::canMove(int x, int y, int dir, int n){
 	if(dir == 3)
 		y++;
 
-	coordinate ghostPos = getGhostPos(n);
+	coordinate ghostPos = getGhostPos(n+1);
 	return canM && (x != ghostPos.x || y != ghostPos.y);
 }
 

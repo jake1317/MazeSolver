@@ -52,7 +52,7 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->left->x = X;
 		cur->left->y = Y;
 		cur->left->parent = cur;
-		cur->left->right = cur;
+		cur->left->right = NULL;
 		cur->left->left = NULL;
 		cur->left->up = NULL;
 		cur->left->down = NULL;
@@ -65,7 +65,7 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->right->y = Y;
 		cur->right->parent = cur;
 		cur->right->right = NULL;
-		cur->right->left = cur;
+		cur->right->left = NULL;
 		cur->right->up = NULL;
 		cur->right->down = NULL;
 		return cur->right;
@@ -79,7 +79,7 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->up->right = NULL;
 		cur->up->left = NULL;
 		cur->up->up = NULL;
-		cur->up->down = cur;
+		cur->up->down = NULL;
 		return cur->up;
 	}
 	else if(X == cur_x && (Y -1)== cur_y)
@@ -90,7 +90,7 @@ Node* Tree::insert(Node * cur, int X, int Y)
 		cur->down->parent = cur;
 		cur->down->right = NULL;
 		cur->down->left = NULL;
-		cur->down->up = cur;
+		cur->down->up = NULL;
 		cur->down->down = NULL;
 		return cur->down;
 	}

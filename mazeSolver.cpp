@@ -258,6 +258,15 @@ Node* MazeSolver::Astar(){
 	Node * root = Astar_tree->get_root();
 	root->distance = heuristic(root->x, root->y);
 	root->pathCost = 0;
+	
+	// Create visited Array
+	bool ** visited = new bool*[maze->getWidth()];
+	for(int i = 0;i<maze->getWidth();i++){
+		visited[i] = new bool[maze->getHeight()];
+		for(int j = 0;j<maze->getHeight();j++){
+			visited[i][j] = false;
+		}
+	}
 
 	// Create frontier
 	priority_queue<Node*, vector<Node*>, indirect_compare> front;
@@ -277,9 +286,12 @@ Node* MazeSolver::Astar(){
 			Astar_cost = current->pathCost + 1;
 			return current;
 		}
+	
+		visited[x][y] = true;		
+
 		Node * child = NULL;
 		// Right Dir (0)
-		if(maze->canMove(x, y, 0, current->pathCost)){
+		if(maze->canMove(x, y, 0, current->pathCost) && !visited[x+1][y]){
 			child = GBFS_tree->insert(current, x+1, y);
 			child->distance = heuristic(x+1, y);
 			child->pathCost = child->parent->pathCost + 1;
@@ -287,7 +299,7 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Up Dir (1)
-		if(maze->canMove(x, y, 1, current->pathCost)){
+		if(maze->canMove(x, y, 1, current->pathCost) && !visited[x][y-1]){
 			child = GBFS_tree->insert(current, x, y-1);
 			child->distance = heuristic(x, y-1);
 			child->pathCost = child->parent->pathCost + 1;
@@ -295,7 +307,7 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Left Dir (2)
-		if(maze->canMove(x, y, 2, current->pathCost)){
+		if(maze->canMove(x, y, 2, current->pathCost) && !visited[x-1][y]){
 			child = GBFS_tree->insert(current, x-1, y);
 			child->distance = heuristic(x-1, y);
 			child->pathCost = child->parent->pathCost + 1;
@@ -303,8 +315,76 @@ Node* MazeSolver::Astar(){
 		}
 
 		// Down Dir (3)
-		if(maze->canMove(x, y, 3, current->pathCost)){
+		if(maze->canMove(x, y, 3, current->pathCost) && !visited[x][y+1]){
 			child = GBFS_tree->insert(current, x, y+1);
+			child->distance = heuristic(x, y+1);
+			child->pathCost = child->parent->pathCost + 1;
+			front.push(child);
+		}
+	}
+	cout << "ayy" << endl;
+	return NULL;
+}
+
+Node* MazeSolver::AstarNoRSD(){
+	// Initialize Tree
+	Astar_tree = new Tree(maze->getStart().x, maze->getStart().y);
+	Node * root = Astar_tree->get_root();
+	root->distance = heuristic(root->x, root->y);
+	root->pathCost = 0;
+	
+	// Create frontier
+	priority_queue<Node*, vector<Node*>, indirect_compare> front;
+	front.push(root);
+
+	// Iterate through maze
+	while(front.size() > 0){
+		Node * current = front.top();
+		front.pop();
+
+		Astar_expandedNodes++;
+		int x = current->x;
+		int y = current->y;
+		
+		// Return if you get to the goal
+		if(maze->atEnd(x, y)){
+			Astar_cost = current->pathCost + 1;
+			return current;
+		}
+/*	
+		cout << "Position: (" << x << ", " << y << ") Level:" << current->pathCost << endl;
+		cout << "Ghost: (" << maze->getGhostPos(current->pathCost).x << ", " << maze->getGhostPos(current->pathCost).y << ") Level:" << current->pathCost << endl;
+		cout << "Right: " << maze->canMove(x, y, 0, current->pathCost) << " Down: " << maze->canMove(x, y, 1, current->pathCost) << " Left: " << maze->canMove(x, y, 2, current->pathCost) << " Up: " << maze->canMove(x, y, 3, current->pathCost) << endl << endl;
+		*/
+		//cout << current->pathCost << " " << Astar_expandedNodes << endl;
+		Node * child = NULL;
+		// Right Dir (0)
+		if(maze->canMove(x, y, 0, current->pathCost)){
+			child = Astar_tree->insert(current, x+1, y);
+			child->distance = heuristic(x+1, y);
+			child->pathCost = child->parent->pathCost + 1;
+			front.push(child);
+		}
+
+		// Up Dir (1)
+		if(maze->canMove(x, y, 1, current->pathCost)){
+			child = Astar_tree->insert(current, x, y-1);
+			child->distance = heuristic(x, y-1);
+			child->pathCost = child->parent->pathCost + 1;
+			front.push(child);
+		}
+
+		// Left Dir (2)
+		if(maze->canMove(x, y, 2, current->pathCost)){
+			child = Astar_tree->insert(current, x-1, y);
+			child->distance = heuristic(x-1, y);
+			child->pathCost = child->parent->pathCost + 1;
+			front.push(child);
+		}
+
+		// Down Dir (3)
+		if(maze->canMove(x, y, 3, current->pathCost)){
+			child = Astar_tree->insert(current, x, y+1);
 			child->distance = heuristic(x, y+1);
 			child->pathCost = child->parent->pathCost + 1;
 			front.push(child);
