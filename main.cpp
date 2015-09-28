@@ -5,37 +5,11 @@ using namespace std;
 
 int main(){
 
-	Maze *maze = new Maze("smallGhost.txt");	
+	// 1.1
+	Maze *maze = new Maze("openMaze.txt");	
 	MazeSolver *solution = new MazeSolver(maze); 
 
-	Node * final = solution->AstarNoRSD();
-	maze->solveMaze(final, "smallGhostAstar.txt", solution->getAstarNoRSDExpandedNodes(), solution->getAstarNoRSDCost());
-
-	delete maze;
-	delete solution;
-
-	maze = new Maze("mediumGhost.txt");	
-	solution = new MazeSolver(maze); 
-
-	final = solution->AstarNoRSD();
-	maze->solveMaze(final, "mediumGhostAstar.txt", solution->getAstarExpandedNodes(), solution->getAstarCost());
-
-	delete maze;
-	delete solution;
-
-	maze = new Maze("bigGhost.txt");	
-	solution = new MazeSolver(maze); 
-
-	final = solution->AstarNoRSD();
-	maze->solveMaze(final, "bigGhostAstar.txt", solution->getAstarExpandedNodes(), solution->getAstarCost());
-
-	delete maze;
-	delete solution;
-
-	maze = new Maze("openMaze.txt");	
-	solution = new MazeSolver(maze); 
-
-	final = solution->BFS();
+	Node *final = solution->BFS();
 	maze->solveMaze(final, "openMazeBFS.txt",solution->getBFSExpandedNodes(), solution->getBFSCost());
 
 	final = solution->DFS();
@@ -82,6 +56,34 @@ int main(){
 
 	final = solution->Astar();
 	maze->solveMaze(final, "bigMazeAstar.txt",solution->getAstarExpandedNodes(), solution->getAstarCost());
+
+	delete maze;
+	delete solution;
+
+	// Ghosts
+	maze = new Maze("smallGhost.txt");	
+	solution = new MazeSolver(maze); 
+
+	final = solution->AstarNoRSD();
+	maze->solveMaze(final, "smallGhostAstar.txt", solution->getAstarNoRSDExpandedNodes(), solution->getAstarNoRSDCost());
+
+	delete maze;
+	delete solution;
+
+	maze = new Maze("mediumGhost.txt");	
+	solution = new MazeSolver(maze); 
+
+	final = solution->AstarNoRSD();
+	maze->solveMaze(final, "mediumGhostAstar.txt", solution->getAstarNoRSDExpandedNodes(), solution->getAstarNoRSDCost());
+
+	delete maze;
+	delete solution;
+
+	maze = new Maze("bigGhost.txt");	
+	solution = new MazeSolver(maze); 
+
+	final = solution->AstarNoRSD();
+	maze->solveMaze(final, "bigGhostAstar.txt", solution->getAstarNoRSDExpandedNodes(), solution->getAstarNoRSDCost());
 
 	delete maze;
 	delete solution;
