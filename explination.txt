@@ -1,9 +1,16 @@
+Who worked on what for this MP:
+	Baim2:
+		Node Struct
+		Tree Class
+		mazeSolver (BFS and DFS)
+		mazeSolver2
+
+	Jleonrd2:
+		maze Class
+		mazeSolver (GBFS and A*)
+		ghost recognition, tracking, and avoidence
+
 For this MP we create a number of different classes and structs. Below are high level discriptions of the objects we made.
-
-baim2 did: Node struct, Tree Class, BFS DFS in mazeSolver, mazeSolver2
-
-jleonrd2 did: maze Class, GBFS Astar in mazeSolver, and all ghost additions
-
 
 Node struct: A node in the tree helping represent the maze. This node contains information about its heuristic, the path cost, its location in the maze, a pointer to the parent node, and four pointers to the four surounding nodes.
 
@@ -18,6 +25,35 @@ MazeSolver2 class: This class is an inherited class of MazeSolver that is utiliz
 Part 1:
 BFS: For our BFS we use a queue as our frontier and keep track of visited nodes in order to find the optimal solution. We loop through a while loop until we find a solution or until the frontier runs out of nodes
 
+
+Medium Maze BFS:
+%%%%%%%%%%%%%%%%%%%%%%%
+%.%   %   %   %   % % %
+%.  %   %% % %%%% %%  %
+%.%   % % % %       % %
+%.%% %%%     %% %% %%%%
+%.% %   % % % % %     %
+%.%%% % %%%  %    %% %%
+%.% %.....  % % %   % %
+%.....% %.%%%   % %   %
+% % % %  ...% % %   % %
+%   %%% %%%.% %   % %%%
+% %     % %.....%     %
+%% % %%    %%%%.% %% %%
+% % %   % %    ...  % %
+%   %% %% %% %%%%.%%  %
+% % %     %     %.% % %
+%%%% %% %%  %% % . % %%
+% % %     %   % %.% % %
+% %% % %%%%% %   ...  %
+% %       %   % % %.% %
+%   %% %% %%% %   %.%%%
+% % %   %       % %...%
+%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 224 Total Path Length: 43
+
+
+Big Maze BFS:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   %   % % %   % %   % %         % %
 %% % % %% % % % %  % %   % %% % %   %
@@ -57,15 +93,318 @@ BFS: For our BFS we use a queue as our frontier and keep track of visited nodes 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nodes expanded: 720 Total Path Length: 63
 
+
+Open Maze BFS:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   %
+%                                   %
+%                                   %
+%          %%%%%%%%%%%%%%%%%%%%%    %
+%          %.................  %    %
+%          %.     %%%%%%%%%%.  %    %
+%          %.     %        %.  %    %
+%          %.     %        %.  %    %
+%          %.     %        %.  %    %
+%          %.     %   .....%.  %    %
+%          %.     %   .%%%%%.  %    %
+%          %.     %   .......  %    %
+%          %.     %            %    %
+%     .......     %            %    %
+%     .           %%%%%%%%%%%%%%    %
+%     .                             %
+%     .                             %
+%     .                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 279 Total Path Length: 55
+
+
 DFS: For our DFS we use a stack as our frontier and keep track of visited nodes in order to find the optimal solution. We loop through a while loop until we find a solution or until the frontier runs out of nodes
+
+
+Medium Maze DFS:
+%%%%%%%%%%%%%%%%%%%%%%%
+%.%   %   %   %   % % %
+%.  %   %% % %%%% %%  %
+%.%   % % % %       % %
+%.%% %%%     %% %% %%%%
+%.% %   % % % % %     %
+%.%%% % %%%  %    %% %%
+%.% %       % % %   % %
+%.    % % %%%   % %   %
+%.% % %     % % %   % %
+%...%%% %%% % %   % %%%
+% %.....% %     %     %
+%% % %%.   %%%% % %% %%
+% % % ..% %         % %
+%   %%.%% %% %%%% %%  %
+% % % ..  %     % % % %
+%%%% %%.%%  %% %   % %%
+% % % ..  %   % % % % %
+% %% %.%%%%% %   ...  %
+% %   ....%   % %.%.% %
+%   %% %%.%%% %...%.%%%
+% % %   %.......% %...%
+%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 72 Total Path Length: 51
+
+
+Big Maze DFS:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   %   % % %   % %   % %         % %
+%% % % %% % % % %  % %   % %% % %   %
+% %           %   %   % %         % %
+%% % %% %% % % % %  %    % % % %% %%%
+%       %   %     % % % % %     %   %
+% % % %% %% % % % % %% %  % % %%  % %
+% %   %     % %         %     % %   %
+%  % %% % %  % % %%%% %   %% %  %% %%
+% % %       % %         %     %     %
+%% % %% % % % % % %% %%% % % % % %% %
+% %   % %         %         %   %   %
+% % %    % % % %%  % %% %% %% %   % %
+%     % %       % %             % % %
+% % %% % %% % %   % %% % % % % %%%% %
+%   %   % % % % %   % % %           %
+% %  %%  %%       %    % % %%% %%% %%
+%   %   %   % % %   % %   %         %
+% %  % % %%   % % %%% % %% % % %% % %
+% % %       % %   %     %     % % % %
+% %% % % % %%  %%  %% % %% % % %    %
+% %       % % %   %   %         % % %
+%%  % %%%    %%% %% %  %%% %%% %%   %
+% %...    % %   % %   %           % %
+% %.%.% %% %% % %   % % %% % % %% %%%
+%  .%....     %   % %   %       %   %
+%%%. % %.%% %...% % % %%  % % %   %%%
+% %.% % ... ..%.  %   % % %     %   %
+%% .   %%%.%.% .%   %   %   %% % % %%
+% %.% %   ... %.  %   %   %         %
+% %. %  % %% % .% % %%%%% % % %% %%%%
+% ..% %   %   %.  %   % %   %     % %
+%%.% %  %  % % .%...%     % % % %   %
+% ..% %   %   %...%.% % %...%  ...% %
+%%%.   % % %% %% % .% %%%.%...%.%...%
+%...% % %     %   %.......% %...% %.%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 121 Total Path Length: 77
+
+
+Open Maze DFS:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   %
+%                                   %
+%                                   %
+%          %%%%%%%%%%%%%%%%%%%%%    %
+%          %     ............  %    %
+%          %     .%%%%%%%%%%.  %    %
+%          %     .%        %.  %    %
+%          %     .%        %.  %    %
+%          %     .%        %.  %    %
+%          %     .%   .....%.  %    %
+%          %     .%   .%%%%%.  %    %
+%          %     .%   . ... .  %    %
+%          %     .%   . . . .  %    %
+%                .%   ... ...  %    %
+%                .%%%%%%%%%%%%%%    %
+%                .                  %
+%                .                  %
+%     ............                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 92 Total Path Length: 63
 
 GBFS: Our GBFS we use a priority queue as a frontier.  This data structure requires the comparison of two nodes in our search tree.  In order to do this according to our heuristic, we made a comparison struct (which dereferenced the node pointers) and an overloaded less than operator within the node struct.  So when a comparison was made in order to create a priority queue, two different comparison functions were called, and the correct ordering is achieved. 
 
+
+Medium Maze GBFS:
+%%%%%%%%%%%%%%%%%%%%%%%
+%.%   %   %   %   % % %
+%.  %   %% % %%%% %%  %
+%.%   % % % %       % %
+%.%% %%%     %% %% %%%%
+%.% %...% % % % %     %
+%.%%%.%.%%%  % ...%% %%
+%.% %. ...  % %.%.  % %
+%.....% %.%%%...%.%   %
+% % % %  ...%.% %.  % %
+%   %%% %%%.%.%  .% %%%
+% %     % %...  %.    %
+%% % %%    %%%% %.%% %%
+% % %   % %      .  % %
+%   %% %% %% %%%%.%%  %
+% % %     %     %.% % %
+%%%% %% %%  %% % . % %%
+% % %     %   % %.% % %
+% %% % %%%%% %   ...  %
+% %       %   % % %.% %
+%   %% %% %%% %   %.%%%
+% % %   %       % %...%
+%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 83 Total Path Length: 57
+
+
+Big Maze GBFS:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   %   % % %   % %   % %         % %
+%% % % %% % % % %  % %   % %% % %   %
+% %           %   %   % %         % %
+%% % %% %% % % % %  %    % % % %% %%%
+%       %   %     % % % % %     %   %
+% % % %% %% % % % % %% %  % % %%  % %
+% %   %     % %         %     % %   %
+%  % %% % %  % % %%%% %   %% %  %% %%
+% % %       % %         %     %     %
+%% % %% % % % % % %% %%% % % % % %% %
+% %   % %         %         %   %   %
+% % %    % % % %%  % %% %% %% %   % %
+%     % %       % %             % % %
+% % %% % %% % %   % %% % % % % %%%% %
+%   %   % % % % %   % % %           %
+% %  %%  %%       %    % % %%% %%% %%
+%   %   %   % % %   % %   %         %
+% %  % % %%   % % %%% % %% % % %% % %
+% % %       % %   %     %     % % % %
+% %% % % % %%  %%  %% % %% % % %    %
+% %       % % %   %   %         % % %
+%%  % %%%    %%% %% %  %%% %%% %%   %
+% %...    % %   % %   %           % %
+% %.%.% %% %% % %   % % %% % % %% %%%
+%  .%....     %   % %   %       %   %
+%%%. % %.%% %...% % % %%  % % %   %%%
+% %.% % ......%.  %   % % %     %   %
+%% .   %%% % % .%   %   %   %% % % %%
+% %.% %       %.  %   %   %         %
+% %. %  % %% % .% % %%%%% % % %% %%%%
+% ..% %   %   %.  %   % %   %     % %
+%%.% %  %  % % .%...%     % % % %   %
+% ..% %   %   %...%.% % %...%.....% %
+%%%.   % % %% %% % .% %%%.%...% %...%
+%...% % %     %   %.......% %   % %.%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 125 Total Path Length: 71
+
+
+Open Maze GBFS:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   %
+%                                   %
+%                                   %
+%          %%%%%%%%%%%%%%%%%%%%%    %
+%          %.................  %    %
+%          %.     %%%%%%%%%%.  %    %
+%          %.     %        %.  %    %
+%          %.     %        %.  %    %
+%          %.     %        %.  %    %
+%          %.     %........%.  %    %
+%          %.     %.   %%%%%.  %    %
+%          %.     %.       ..  %    %
+%          %.     %.........   %    %
+%     .......     %            %    %
+%     .           %%%%%%%%%%%%%%    %
+%     .                             %
+%     .                             %
+%     .                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 4587 Total Path Length: 63
+
 A*: Our A* was very similar to the GBFS, but we added the path cost of each node to the comparison function used by the priority queue.  This resulted in a more optimal ordering of frontier nodes, and a better solution with less nodes expanded.
+
+
+Medium Maze A*:
+%%%%%%%%%%%%%%%%%%%%%%%
+%.%   %   %   %   % % %
+%.  %   %% % %%%% %%  %
+%.%   % % % %       % %
+%.%% %%%     %% %% %%%%
+%.% %   % % % % %     %
+%.%%% % %%%  %    %% %%
+%.% %.....  % % %   % %
+%.....% %.%%%   % %   %
+% % % %  ...% % %   % %
+%   %%% %%%.% %   % %%%
+% %     % %.....%     %
+%% % %%    %%%%.% %% %%
+% % %   % %    ...  % %
+%   %% %% %% %%%%.%%  %
+% % %     %     %.% % %
+%%%% %% %%  %% % . % %%
+% % %     %   % %.% % %
+% %% % %%%%% %   ...  %
+% %       %   % % %.% %
+%   %% %% %%% %   %.%%%
+% % %   %       % %...%
+%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 126 Total Path Length: 43
+
+
+Big Maze A*:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   %   % % %   % %   % %         % %
+%% % % %% % % % %  % %   % %% % %   %
+% %           %   %   % %         % %
+%% % %% %% % % % %  %    % % % %% %%%
+%       %   %     % % % % %     %   %
+% % % %% %% % % % % %% %  % % %%  % %
+% %   %     % %         %     % %   %
+%  % %% % %  % % %%%% %   %% %  %% %%
+% % %       % %         %     %     %
+%% % %% % % % % % %% %%% % % % % %% %
+% %   % %         %         %   %   %
+% % %    % % % %%  % %% %% %% %   % %
+%     % %       % %             % % %
+% % %% % %% % %   % %% % % % % %%%% %
+%   %   % % % % %   % % %           %
+% %  %%  %%       %    % % %%% %%% %%
+%   %   %   % % %   % %   %         %
+% %  % % %%   % % %%% % %% % % %% % %
+% % %       % %   %     %     % % % %
+% %% % % % %%  %%  %% % %% % % %    %
+% %       % % %   %   %         % % %
+%%  % %%%    %%% %% %  %%% %%% %%   %
+% %...    % %   % %   %           % %
+% %.%.% %% %% % %   % % %% % % %% %%%
+%  .%.........%   % %   %       %   %
+%%%. % % %% %...% % % %%  % % %   %%%
+% %.% %       %...%   % % %     %   %
+%% .   %%% % %  %...%   %   %% % % %%
+% %.% %       %   %.  %   %         %
+% %. %  % %% %  % %.%%%%% % % %% %%%%
+% ..% %   %   %   %...% %   %     % %
+%%.% %  %  % %  %   %.....% % % %   %
+% ..% %   %   %   % % % %...%.....% %
+%%%.   % % %% %% %  % %%% %...% %...%
+%...% % %     %   %       % %   % %.%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 347 Total Path Length: 63
+
+
+Open Maze A*:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   %
+%                                   %
+%                                   %
+%          %%%%%%%%%%%%%%%%%%%%%    %
+%          %   ..............  %    %
+%          %   .  %%%%%%%%%%.  %    %
+%          %   .  %        %.  %    %
+%          %   .  %        %.  %    %
+%          %  ..  %        %.  %    %
+%          %  .   %   .....%.  %    %
+%          %  .   %   .%%%%%.  %    %
+%          % ..   %   .......  %    %
+%          % .    %            %    %
+%            .    %            %    %
+%           ..    %%%%%%%%%%%%%%    %
+%           .                       %
+%          ..                       %
+%     ......                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 456 Total Path Length: 55
 
 Part 2:
 For part two the heuristic function that we use takes into account the cost of turning. Through clever math we are able to guess the minimum amount of times that the pacman must turn if there were no walls in the maze. The number of turns ends up being somewhere between 0 and 2. This is admissible because we assume there are no walls and look for the minimum amount of turning necessary for the pacman. That way we are never over estimating our number of turns. We see that the number of expanded nodes decreases and the more turning there is the less nodes we expand, and the optimal solution path stays the same as expected.
-original heuristic move 2 turn 1 
+
+
+Original Heuristic Move 2 Turn 1: 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                             P%
 % %  %%%%%%%%%%%%%%%%%%%%%%%%%.%
@@ -79,7 +418,8 @@ original heuristic move 2 turn 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nodes expanded: 213 Total Path Cost: 122
 
-better heuristic move 2 turn 1
+
+Better Heuristic Move 2 Turn 1:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                             P%
 % %  %%%%%%%%%%%%%%%%%%%%%%%%%.%
@@ -93,7 +433,8 @@ better heuristic move 2 turn 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nodes expanded: 79 Total Path Cost: 122
 
-original heuristic move 1 turn 2
+
+Original Heuristic Move 1 Turn 2:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %.............................P%
 %.%  %%%%%%%%%%%%%%%%%%%%%%%%% %
@@ -107,7 +448,8 @@ original heuristic move 1 turn 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nodes expanded: 154 Total Path Cost: 71
 
-better heuristic move 1 turn 2
+
+Better Heuristic Move 1 Turn 2:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %.............................P%
 %.%  %%%%%%%%%%%%%%%%%%%%%%%%% %
@@ -121,7 +463,8 @@ better heuristic move 1 turn 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nodes expanded: 145 Total Path Cost: 71
 
-original heuristic move 2 turn 1
+
+Original Heuristic Move 2 Turn 1:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                   %
 % %%  %% %% %% %%%%  %%   % %% % %  %
@@ -161,7 +504,8 @@ original heuristic move 2 turn 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nodes expanded: 795 Total Path Cost: 135
 
-better heuristic move 2 turn 1
+
+Better Heuristic Move 2 Turn 1:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                   %
 % %%  %% %% %% %%%%  %%   % %% % %  %
@@ -201,7 +545,8 @@ better heuristic move 2 turn 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nodes expanded: 320 Total Path Cost: 135
 
-original heuristic move 1 turn 2
+
+Original Heuristic Move 1 Turn 2:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %...................................%
 %.%%  %% %% %% %%%%  %%   % %% % % .%
@@ -241,7 +586,8 @@ original heuristic move 1 turn 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Nodes expanded: 553 Total Path Cost: 91
 
-better heuristic move 1 turn 2
+
+Better Heuristic Move 1 Turn 2:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %...................................%
 %.%%  %% %% %% %%%%  %%   % %% % % .%
@@ -284,10 +630,251 @@ Nodes expanded: 519 Total Path Cost: 91
 Part 3:
 When a ghost was detected while reading the maze, A function is called that characterizes the movement of the ghost. After finding the width of the constraining walls and the starting position, it was fairly trivial to make a function that predicted the ghost's position at any given time.  Whenever a search tree tried to branch, it would treat the ghost as a wall given its position at that time.  Although this would never allow our path to cross the ghost's, our RSD prevented us from "loitering" and waiting for the ghost to get out of the way.  We made a version of A* without RSD, and it worked very well.  An interesting, but expected, side effect of not using RSD is our expanded node count went up by nearly five times.  In the future, it would be interesting to find a middle ground betwen Strict RSD and no RSD.  Hopefully a less strict RSD system would result in lower expanded nodes. 
 
-Part 4 (one of three option):
+
+In these Maze Solutions, if the path involved going over a given coordinate more than once, the '.' will be replaced with the number of times the spot was passed over. 
+
+Original Small Maze:
+%%%%%%%%%%%%%%%%%%%%%%
+% %%        % %      %
+%    %%%%%% % %%%%%% %
+%%%%%%     P  %      %
+%    % %%%%%% %% %%%%%
+% %%%% %gGggggggg%   %
+%        %%% %%%   % %
+%%%%%%%%%%    %%%%%% %
+%.         %%        %
+%%%%%%%%%%%%%%%%%%%%%%
+
+Small Maze With No Ghost Detection:
+%%%%%%%%%%%%%%%%%%%%%%
+% %%        % %      %
+%    %%%%%% % %%%%%% %
+%%%%%%     ...%      %
+%    % %%%%%%.%% %%%%%
+% %%%% %    ..   %   %
+%        %%%.%%%   % %
+%%%%%%%%%%... %%%%%% %
+%..........%%        %
+%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 54 Total Path Length: 20
+
+Small Maze With Ghost Detection:
+%%%%%%%%%%%%%%%%%%%%%%
+% %%        % %      %
+%    %%%%%% % %%%%%% %
+%%%%%%     ..2%      %
+%    % %%%%%%2%% %%%%%
+% %%%% %    ..   %   %
+%        %%%.%%%   % %
+%%%%%%%%%%... %%%%%% %
+%..........%%        %
+%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 1483 Total Path Length: 22
+
+Original Medium Ghost Maze:
+%%%%%%%%%%%%%%%
+%.      %     %
+% %%%% %%% %  %
+% %   % %   % %
+%   %% %% %%  %
+% %       % % %
+%% % %% %%%%  %
+% %Ggggggggg% %
+%   %%% % %%% %
+% %   % %     %
+% %%%     %% %%
+%   % % % %   %
+%%%%%  %%   % %
+%     %   % %P%
+%%%%%%%%%%%%%%%
+
+Medium Maze With No Ghost Detection:
+%%%%%%%%%%%%%%% 
+%.      %     % 
+%.%%%% %%% %  % 
+%.%   % %   % % 
+%...%% %% %%  % 
+% %.....  % % % 
+%% % %%.%%%%  % 
+% %    ...  % % 
+%   %%% %.%%% % 
+% %   % %.... % 
+% %%%     %%.%% 
+%   % % % % ..% 
+%%%%%  %%   %.% 
+%     %   % %.% 
+%%%%%%%%%%%%%%% 
+Nodes expanded: 41 Total Path Length: 25
+
+Medium Maze With Ghost Detection:
+%%%%%%%%%%%%%%% 
+%.      %     % 
+%.%%%% %%% %  % 
+%.%   % %   % % 
+%...%% %% %%  % 
+% %.....  % % % 
+%% % %%.%%%%  % 
+% %    ...  % % 
+%   %%% %.%%% % 
+% %   % %2... % 
+% %%%    .%%.%% 
+%   % % % % ..% 
+%%%%%  %%   %.% 
+%     %   % %.% 
+%%%%%%%%%%%%%%% 
+Nodes expanded: 153 Total Path Length: 27
+
+
+Original Big Ghost Maze:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%.%     % %   % %   %               %
+%   %% %%  % %  % %  % % % %% % %% %%
+% % % %   %   %   % %     %   %     %
+%       %% % %%%%   %% % %%% %  %% %%
+% % % % %         %           %   % %
+% %      % % %% %%%% %% % %% % % %  %
+%   % % %         %       %       % %
+%%% %% % % % % %%%  % % %%  %% % % %%
+%             %   % % %   % % %     %
+% %% %% %%% %   %       %%      %% %%
+%             %   % % %   % % % %   %
+% %%% % %%%% % % %% % % %%%%    % % %
+%   %   %   %   %       % % % % %   %
+%% % %%   % % %   % %% %% %%  %  % %%
+% %   % %       %   %       %   %   %
+% % % %   %% %% %%%%  % % %%% %   % %
+%       %         % %     % %   %   %
+%% % %%  % %% % %  % % %%    %%% % %%
+%   %             % % % % % %       %
+% %  % % %% % % % %         %% %%% %%
+%   % %   %ggggggG% % % % % %   %   %
+% %%  %%%  % %% %%    % %% %  %% %% %
+%   %   % %   %   % %       %   %   %
+%% % % %% %% % %%     % %% % %%  % %%
+% %   %           % %     %     %   %
+%   %   %% %%% %% %   %% %% % % % % %
+% %   %     % % %   %           % % %
+%   %  % %% %  %% % % % %% %%% %%  %%
+% % % % % % % %       % %   % % % % %
+% %   %      % % % %%     %     % %%%
+%   %   % % %   %   % % % % % %     %
+%%% %% % %    %   %  % %  %% % %%%% %
+% %       % %   % % %   % %       % %
+% % % % %    % %% % % %  % %% % %   %
+%         % %   %       %     %   %P%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Path Taken with No Ghost Detection:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%.%     % %   % %   %               % 
+%...%% %%  % %  % %  % % % %% % %% %% 
+% %.% %   %   %   % %     %   %     % 
+%  .    %% % %%%%   %% % %%% %  %% %% 
+% %.% % %         %           %   % % 
+% %.     % % %% %%%% %% % %% % % %  % 
+%  .% % %         %       %       % % 
+%%%.%% % % % % %%%  % % %%  %% % % %% 
+%  ..         %   % % %   % % %     % 
+% %%.%% %%% %   %       %%      %% %% 
+%   ....      %   % % %   % % % %   % 
+% %%% %.%%%% % % %% % % %%%%    % % % 
+%   %  .%   %   %       % % % % %   % 
+%% % %%...% % %   % %% %% %%  %  % %% 
+% %   % %.      %   %       %   %   % 
+% % % %  .%% %% %%%%  % % %%% %   % % 
+%       %..       % %     % %   %   % 
+%% % %%  %.%% % %  % % %%    %%% % %% 
+%   %     ..      % % % % % %       % 
+% %  % % %%.% % % %         %% %%% %% 
+%   % %   %.....  % % % % % %   %   % 
+% %%  %%%  % %%.%%    % %% %  %% %% % 
+%   %   % %   %...% %       %   %   % 
+%% % % %% %% % %%.....% %% % %%  % %% 
+% %   %           % %.    %     %   % 
+%   %   %% %%% %% %  .%% %% % % % % % 
+% %   %     % % %   %......     % % % 
+%   %  % %% %  %% % % % %%.%%% %%  %% 
+% % % % % % % %       % % ..% % % % % 
+% %   %      % % % %%     %.....% %%% 
+%   %   % % %   %   % % % % % %.....% 
+%%% %% % %    %   %  % %  %% % %%%%.% 
+% %       % %   % % %   % %       %.% 
+% % % % %    % %% % % %  % %% % %  .% 
+%         % %   %       %     %   %.% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+Nodes expanded: 212 Total Path Length: 69
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%.%     % %   % %   %               % 
+%...%% %%  % %  % %  % % % %% % %% %% 
+% %.% %   %   %   % %     %   %     % 
+%  .    %% % %%%%   %% % %%% %  %% %% 
+% %.% % %         %           %   % % 
+% %.     % % %% %%%% %% % %% % % %  % 
+%  .% % %         %       %       % % 
+%%%.%% % % % % %%%  % % %%  %% % % %% 
+%  .....      %   % % %   % % %     % 
+% %% %%.%%% %   %       %%      %% %% 
+%      .      %   % % %   % % % %   % 
+% %%% %.%%%% % % %% % % %%%%    % % % 
+%   %  .%   %   %       % % % % %   % 
+%% % %%...% % %   % %% %% %%  %  % %% 
+% %   % %.      %   %       %   %   % 
+% % % %  .%% %% %%%%  % % %%% %   % % 
+%       %..       % %     % %   %   % 
+%% % %%  %.%% % %  % % %%    %%% % %% 
+%   %     ....    % % % % % %       % 
+% %  % % %% %.% % %         %% %%% %% 
+%   % %   %  ...  % % % % % %   %   % 
+% %%  %%%  % %%.%%    % %% %  %% %% % 
+%   %   % %   %...% %       %   %   % 
+%% % % %% %% % %%2....% %% % %%  % %% 
+% %   %          .% %.... %     %   % 
+%   %   %% %%% %% %   %%.%% % % % % % 
+% %   %     % % %   %   ...     % % % 
+%   %  % %% %  %% % % % %%.%%% %%  %% 
+% % % % % % % %       % % ..% % % % % 
+% %   %      % % % %%     %.....% %%% 
+%   %   % % %   %   % % % % % %.....% 
+%%% %% % %    %   %  % %  %% % %%%%.% 
+% %       % %   % % %   % %       %.% 
+% % % % %    % %% % % %  % %% % %  .% 
+%         % %   %       %     %   %.% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+Nodes expanded: 1123 Total Path Length: 71
+
+
+Part 4 (one of three options):
 For this part we created a heuristic function that reduced the number of expanded nodes but was not admissible. We count the number of walls to the solution on an arbitrary path and add that to the cost of our heuristic. This is not admissible because there could be a path with less walls and the addition of each wall is not exactly an addition of one to the cost path. But this heuristic decreased the number of expanded nodes for all clases and maintained the optimal solution.
 
 
+Medium Maze With Better Heuristic:
+%%%%%%%%%%%%%%%%%%%%%%%
+%.%   %   %   %   % % %
+%.  %   %% % %%%% %%  %
+%.%   % % % %       % %
+%.%% %%%     %% %% %%%%
+%.% %   % % % % %     %
+%.%%% % %%%  %    %% %%
+%.% %.....  % % %   % %
+%.....% %.%%%   % %   %
+% % % %  ...% % %   % %
+%   %%% %%%.% %   % %%%
+% %     % %.....%     %
+%% % %%    %%%%.% %% %%
+% % %   % %    ...  % %
+%   %% %% %% %%%%.%%  %
+% % %     %     %.% % %
+%%%% %% %%  %% % . % %%
+% % %     %   % %.% % %
+% %% % %%%%% %   ...  %
+% %       %   % % %.% %
+%   %% %% %%% %   %.%%%
+% % %   %       % %..P%
+%%%%%%%%%%%%%%%%%%%%%%%
+Nodes expanded: 52 Total Path Length: 43
+
+
+Big Maze With Better Heuristic:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   %   % % %   % %   % %         % %
 %% % % %% % % % %  % %   % %% % %   %
@@ -328,32 +915,7 @@ For this part we created a heuristic function that reduced the number of expande
 Nodes expanded: 241 Total Path Length: 63
 
 
-%%%%%%%%%%%%%%%%%%%%%%%
-%.%   %   %   %   % % %
-%.  %   %% % %%%% %%  %
-%.%   % % % %       % %
-%.%% %%%     %% %% %%%%
-%.% %   % % % % %     %
-%.%%% % %%%  %    %% %%
-%.% %.....  % % %   % %
-%.....% %.%%%   % %   %
-% % % %  ...% % %   % %
-%   %%% %%%.% %   % %%%
-% %     % %.....%     %
-%% % %%    %%%%.% %% %%
-% % %   % %    ...  % %
-%   %% %% %% %%%%.%%  %
-% % %     %     %.% % %
-%%%% %% %%  %% % . % %%
-% % %     %   % %.% % %
-% %% % %%%%% %   ...  %
-% %       %   % % %.% %
-%   %% %% %%% %   %.%%%
-% % %   %       % %..P%
-%%%%%%%%%%%%%%%%%%%%%%%
-Nodes expanded: 52 Total Path Length: 43
-
-
+Open Maze With Better Heuristic:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                   %
 %                                   %
